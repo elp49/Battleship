@@ -18,7 +18,7 @@ public class BattleScreen extends JPanel {
 	}};
 	
 	JPanel BattleGrids = new JPanel() {{
-		setPreferredSize(ScreenSizer.getRectangleBasedOnScreenSize(0.65,0.5));
+		//setPreferredSize(ScreenSizer.getRectangleBasedOnScreenSize(0.75,0.5));
 		//setLayout(new BoxLayout(BattleGrids, BoxLayout.LINE_AXIS));
 		setLayout(new GridLayout(1,2));
 		add(new BattleGrid());
@@ -31,7 +31,7 @@ public class BattleScreen extends JPanel {
 	}};
 	
 	JPanel GameLog = new JPanel() {{
-		setPreferredSize(ScreenSizer.getRectangleBasedOnScreenSize(0.35, 0.25));
+		setPreferredSize(ScreenSizer.getRectangleBasedOnScreenSize(0.25, 0.25));
 		setBackground(Color.GREEN);
 	}};
 	
@@ -40,6 +40,7 @@ public class BattleScreen extends JPanel {
 	}};*/
 	
 	public BattleScreen() {
+		//setLayout(new GridLayout(3,2));
 		setLayout(new BorderLayout());
 		//addWithWindowPortionAndLayout(MSGBanner,1,0.5,BorderLayout.PAGE_START);
 		add(MSGBanner, BorderLayout.PAGE_START);
@@ -52,6 +53,20 @@ public class BattleScreen extends JPanel {
 		add(GameLog,BorderLayout.LINE_END);
 		//setBorder(BorderFactory.createEtchedBorder());
 		//add(BattleGrids);
+		//add(MSGBanner);
+		//add(BattleGrids);
+		//add(GameLog);
+		//add(MoveyButtons);
 		setVisible(true);
+	}
+	
+	public void setSizes() {
+		setSize(new Dimension(super.getParent().getBounds().width-3,super.getParent().getBounds().height-3));
+		BattleGrids.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width * 0.8),super.getParent().getBounds().height));
+		MoveyButtons.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width),(int) (super.getParent().getBounds().height*0.1)));
+		GameLog.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width * 0.2),super.getParent().getBounds().height));
+		MSGBanner.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width),(int) (super.getParent().getBounds().height*0.035)));
+		validate();
+		repaint();
 	}
 }

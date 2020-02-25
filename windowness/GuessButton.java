@@ -10,7 +10,9 @@ public class GuessButton extends JPanel {
 	public GuessButton() {
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));//createEtchedBorder());
-		add(new JLabel(" "),BorderLayout.CENTER);
+		add(new JLabel(" ") {{
+			setFont(ScreenSizer.SmallestReadableFont);
+		}},BorderLayout.CENTER);
 		setVisible(true);
 	}
 	

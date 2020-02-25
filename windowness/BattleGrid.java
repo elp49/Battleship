@@ -1,7 +1,7 @@
 package windowness;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.*;
+import java.awt.event.*;
 
 import javax.swing.*;
 
@@ -21,7 +21,9 @@ public class BattleGrid extends JPanel{
 				setBorder(BorderFactory.createEtchedBorder());
 				setVisible(true);
 			}};
-			myCharLabels[i].add(new JLabel(""+hold),BorderLayout.CENTER);
+			myCharLabels[i].add(new JLabel(""+hold) {{
+				setFont(ScreenSizer.SmallestReadableFont);
+			}},BorderLayout.CENTER);
 			if(i==0) {
 				hold = 'A';
 			}
@@ -37,7 +39,9 @@ public class BattleGrid extends JPanel{
 				setBorder(BorderFactory.createEtchedBorder());
 				setVisible(true);
 			}};
-			myNumLabels[i].add(new JLabel(""+hold_n),BorderLayout.CENTER);
+			myNumLabels[i].add(new JLabel(""+hold_n) {{
+				setFont(ScreenSizer.SmallestReadableFont);
+			}},BorderLayout.CENTER);
 			hold_n++;
 		}
 		
