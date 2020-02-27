@@ -9,7 +9,7 @@ import javax.swing.border.BevelBorder;
 
 public class GuessButton extends JPanel {
 	
-	boolean opponent = true;
+	boolean player = false;
 	boolean clicked = false;
 	
 	public GuessButton() {
@@ -18,28 +18,28 @@ public class GuessButton extends JPanel {
 		add(new JLabel(" ") {{
 			setFont(ScreenSizer.SmallestReadableFont);
 		}},BorderLayout.CENTER);
-		if(opponent) {
+		if(!player) {
 			addMouseListener(new MouseListener() {
 				public void mouseClicked(MouseEvent e){
 					//Do Nothing
 				}
 				public void mouseEntered(MouseEvent e) {
-					if(!clicked) {
+					if(!player && !clicked) {
 						setBackground(Color.YELLOW);
 					}
 				}
 				public void mouseExited(MouseEvent e) {
-					if(!clicked) {
+					if(!player && !clicked) {
 						setBackground(Color.getColor("Parent.Background"));
 					}
 				}
 				public void mousePressed(MouseEvent e) {
-					if(!clicked) {
+					if(!player && !clicked) {
 						setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 					}
 				}
 				public void mouseReleased(MouseEvent e) {
-					if(!clicked) {
+					if(!player && !clicked) {
 						setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 						MarkClick();
 					}
@@ -47,6 +47,10 @@ public class GuessButton extends JPanel {
 			});
 		}
 		setVisible(true);
+	}
+	
+	public void setPlayer(boolean isPlayer) {
+		player = isPlayer;
 	}
 	
 	private void MarkClick() {

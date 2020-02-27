@@ -8,6 +8,7 @@ public class HealthUnitVisual extends JPanel{
 	
 	public HealthUnitVisual(){
 		setBackground(Color.GREEN);
+		setSize(ScreenSizer.SmallestReadableFont.getSize(),ScreenSizer.SmallestReadableFont.getSize());
 	}
 	
 	public void takeDamage() {

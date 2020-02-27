@@ -3,6 +3,8 @@ package windowness;
 import javax.swing.*;
 import java.awt.*;
 
+import code.Ship;
+
 public class BattleScreen extends JPanel {
 	
 	//public JButton[][] mySquares;
@@ -31,11 +33,13 @@ public class BattleScreen extends JPanel {
 	}};
 	
 	JPanel GameLog_HealthBars = new JPanel() {{
+		setLayout(new FlowLayout(FlowLayout.CENTER));
 		setPreferredSize(ScreenSizer.getRectangleBasedOnScreenSize(0.25, 0.25));
 		//setBackground(Color.GREEN);
 	}};
 	
 	GameLog myGameLog = new GameLog(12);
+	HealthBarPanel myHBP = new HealthBarPanel(new Ship[0]);
 	
 	/*JPanel BattleGrids = new JPanel() {{
 		setLayout(new GridLayout(11,11));
@@ -53,6 +57,7 @@ public class BattleScreen extends JPanel {
 		//add(new BattleGrid(), BorderLayout.LINE_END);
 		add(MoveyButtons,BorderLayout.SOUTH);
 		GameLog_HealthBars.add(myGameLog);
+		GameLog_HealthBars.add(myHBP);
 		add(GameLog_HealthBars,BorderLayout.LINE_END);
 		//setBorder(BorderFactory.createEtchedBorder());
 		//add(BattleGrids);
@@ -85,10 +90,16 @@ public class BattleScreen extends JPanel {
 		}
 		add(BattleGrids,BorderLayout.LINE_START);*/
 		BattleGrids.removeAll();
-		BattleGrids.add(new BattleGrid());
+		BattleGrids.add(new BattleGrid() {{setPlayer(true);}});
 		BattleGrids.add(new BattleGrid());
 		BattleGrids.validate();
 		BattleGrids.repaint();
+		
+		myHBP.resetHBP(new Ship[] {
+				new Ship() {{setName("Destroyer");setSize(3);}},
+				new Ship() {{setName("Patrol Boat");setSize(2);}}
+		});
+		
 		myGameLog.resetLog();
 		myGameLog.resizeLog();
 		myGameLog.log("Starting New Game",Color.CYAN);

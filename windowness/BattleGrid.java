@@ -23,6 +23,8 @@ public class BattleGrid extends JPanel{
 			}};
 			myCharLabels[i].add(new JLabel(""+hold) {{
 				setFont(ScreenSizer.SmallestReadableFont);
+				setAlignmentX(Component.CENTER_ALIGNMENT);
+				setAlignmentY(Component.CENTER_ALIGNMENT);
 			}},BorderLayout.CENTER);
 			if(i==0) {
 				hold = 'A';
@@ -41,6 +43,8 @@ public class BattleGrid extends JPanel{
 			}};
 			myNumLabels[i].add(new JLabel(""+hold_n) {{
 				setFont(ScreenSizer.SmallestReadableFont);
+				setAlignmentX(Component.CENTER_ALIGNMENT);
+				setAlignmentY(Component.CENTER_ALIGNMENT);
 			}},BorderLayout.CENTER);
 			hold_n++;
 		}
@@ -54,6 +58,14 @@ public class BattleGrid extends JPanel{
 					mySquares[i][j] = new GuessButton();
 					add(mySquares[i][j]);
 				}
+			}
+		}
+	}
+	
+	public void setPlayer(boolean isPlayer) {
+		for(int i = 0; i < mySquares.length; i++) {
+			for(int j = 0; j < mySquares[i].length; j++) {
+				mySquares[i][j].setPlayer(isPlayer);
 			}
 		}
 	}
