@@ -15,17 +15,30 @@ public class MainWindow extends JFrame{
 	
 	public JMenu Game_Menu = new JMenu("Game") {{
 		setMnemonic(KeyEvent.VK_G);
+		add(new JMenuItem("New Game") {{
+			setFont(ScreenSizer.SmallestReadableFont);
+			addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent ev) {
+					ShowWindow.beginBattle();
+				}
+			});
+		}});
 		add(new JMenuItem("Surrender") {{
 			setFont(ScreenSizer.SmallestReadableFont);
+			addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent ev) {
+					ShowWindow.returnToMainMenu();
+				}
+			});
 		}});
 		add(new JMenuItem("Exit") {{
 			setFont(ScreenSizer.SmallestReadableFont);
 			addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent ev) {
-				Frame[] windows = getFrames();
-				for(int i = windows.length-1; i >= 0; i--) {
-					windows[i].dispose();
-				}
+					Frame[] windows = getFrames();
+					for(int i = windows.length-1; i >= 0; i--) {
+						windows[i].dispose();
+					}
 				}
 			});
 		}});

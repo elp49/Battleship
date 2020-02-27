@@ -1,11 +1,16 @@
 package windowness;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 
 public class GuessButton extends JPanel {
+	
+	boolean opponent = true;
+	boolean clicked = false;
 	
 	public GuessButton() {
 		setLayout(new BorderLayout());
@@ -13,11 +18,42 @@ public class GuessButton extends JPanel {
 		add(new JLabel(" ") {{
 			setFont(ScreenSizer.SmallestReadableFont);
 		}},BorderLayout.CENTER);
+		if(opponent) {
+			addMouseListener(new MouseListener() {
+				public void mouseClicked(MouseEvent e){
+					//Do Nothing
+				}
+				public void mouseEntered(MouseEvent e) {
+					if(!clicked) {
+						setBackground(Color.YELLOW);
+					}
+				}
+				public void mouseExited(MouseEvent e) {
+					if(!clicked) {
+						setBackground(Color.getColor("Parent.Background"));
+					}
+				}
+				public void mousePressed(MouseEvent e) {
+					if(!clicked) {
+						setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+					}
+				}
+				public void mouseReleased(MouseEvent e) {
+					if(!clicked) {
+						setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+						MarkClick();
+					}
+				}
+			});
+		}
 		setVisible(true);
 	}
 	
 	private void MarkClick() {
 		setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+		setBackground(Color.LIGHT_GRAY);
+		ShowWindow.theBattleScreen.log("click");
+		clicked = true;
 	}
 	
 	public void MarkHit() {
@@ -28,6 +64,12 @@ public class GuessButton extends JPanel {
 	public void MarkMiss() {
 		MarkClick();
 		//Show a miss marker on this
+	}
+	
+	public void reset() {
+		setBackground(Color.getColor("Parent.Background"));
+		clicked = false;
+		setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 	}
 	
 }

@@ -30,10 +30,12 @@ public class BattleScreen extends JPanel {
 		setBackground(Color.BLUE);
 	}};
 	
-	JPanel GameLog = new JPanel() {{
+	JPanel GameLog_HealthBars = new JPanel() {{
 		setPreferredSize(ScreenSizer.getRectangleBasedOnScreenSize(0.25, 0.25));
-		setBackground(Color.GREEN);
+		//setBackground(Color.GREEN);
 	}};
+	
+	GameLog myGameLog = new GameLog(12);
 	
 	/*JPanel BattleGrids = new JPanel() {{
 		setLayout(new GridLayout(11,11));
@@ -50,7 +52,8 @@ public class BattleScreen extends JPanel {
 		//addAsHeightBasedSquareWithWindowPortionAndLayout(new BattleGrid(),0.75,BorderLayout.LINE_END);
 		//add(new BattleGrid(), BorderLayout.LINE_END);
 		add(MoveyButtons,BorderLayout.SOUTH);
-		add(GameLog,BorderLayout.LINE_END);
+		GameLog_HealthBars.add(myGameLog);
+		add(GameLog_HealthBars,BorderLayout.LINE_END);
 		//setBorder(BorderFactory.createEtchedBorder());
 		//add(BattleGrids);
 		//add(MSGBanner);
@@ -61,11 +64,42 @@ public class BattleScreen extends JPanel {
 	}
 	
 	public void setSizes() {
-		setSize(new Dimension(super.getParent().getBounds().width-3,super.getParent().getBounds().height-3));
+		setSize(new Dimension(super.getParent().getBounds().width,super.getParent().getBounds().height));
 		BattleGrids.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width * 0.8),super.getParent().getBounds().height));
 		MoveyButtons.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width),(int) (super.getParent().getBounds().height*0.1)));
-		GameLog.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width * 0.2),super.getParent().getBounds().height));
+		GameLog_HealthBars.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width * 0.2),super.getParent().getBounds().height));
 		MSGBanner.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width),(int) (super.getParent().getBounds().height*0.035)));
+		myGameLog.resizeLog();
+		validate();
+		repaint();
+	}
+	
+	public void reload() {
+		/*remove(BattleGrids);
+		Component[] hold = BattleGrids.getComponents();
+		for(int i = 0; i < hold.length; i++) {
+			if(hold[i].getClass().getName() == "BattleGrid") {
+				System.out.println(hold[i].getClass().getName());
+				((BattleGrid) BattleGrids.getComponents()[i]).reset();
+			}
+		}
+		add(BattleGrids,BorderLayout.LINE_START);*/
+		BattleGrids.removeAll();
+		BattleGrids.add(new BattleGrid());
+		BattleGrids.add(new BattleGrid());
+		BattleGrids.validate();
+		BattleGrids.repaint();
+		myGameLog.resetLog();
+		myGameLog.resizeLog();
+		myGameLog.log("Starting New Game",Color.CYAN);
+	}
+	
+	public void log(String toLog) {
+		myGameLog.log(toLog);
+	}
+	
+	public void log(String toLog, Color txtColor) {
+		myGameLog.log(toLog, txtColor);
 		validate();
 		repaint();
 	}

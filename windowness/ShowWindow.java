@@ -13,9 +13,10 @@ public class ShowWindow {
 	}
 	
 	public static void showWindow() {
-		theMainWindow.setScreen(theBattleScreen);
-		theBattleScreen.setSizes();
-		//theMainWindow.setScreen(theMainMenu);
+		//theMainWindow.setScreen(theBattleScreen);
+		//theBattleScreen.setSizes();
+		theMainWindow.setScreen(theMainMenu);
+		//theMainMenu.setSizes();
 		theMainWindow.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
@@ -29,5 +30,15 @@ public class ShowWindow {
 				}
 			}
 		});
+	}
+	
+	public static void returnToMainMenu() {
+		theMainWindow.setScreen(theMainMenu);
+	}
+	
+	public static void beginBattle() {
+		theMainWindow.setScreen(theBattleScreen);
+		theBattleScreen.reload();
+		theBattleScreen.setSizes();
 	}
 }
