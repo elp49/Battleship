@@ -18,14 +18,7 @@ public class HealthBarData extends JPanel{
 	
 	public HealthBarData(String pic, String name, int healthAmt) {
 		setLayout(new BoxLayout(this,BoxLayout.LINE_AXIS));
-		try {
-			BufferedImage myPic = ImageIO.read(new File(pic));
-			myPicHolder.add(new JLabel(new ImageIcon(myPic)));
-		}
-		catch(IOException e) {
-			System.out.println("Attempted to make image from nonexistent file \"" + pic + "\"! Placeholder loaded instead.");
-			myPicHolder = new PlaceHolderGraphic();
-		}
+		myPicHolder = ImageAdd.getImage(pic);
 		
 		myShipName = new JLabel(name.toUpperCase()) {{
 			setFont(ScreenSizer.SmallestReadableFont);

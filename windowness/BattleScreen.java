@@ -4,10 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 
 import code.Ship;
+import controllers.BattleGridController;
 
 public class BattleScreen extends JPanel {
 	
 	//public JButton[][] mySquares;
+	
+	BattleGridController playerBGC = new BattleGridController();
+	BattleGridController opponentBGC = new BattleGridController();
 	
 	JPanel MSGBanner = new JPanel() {{
 		setLayout(new FlowLayout());
@@ -90,8 +94,10 @@ public class BattleScreen extends JPanel {
 		}
 		add(BattleGrids,BorderLayout.LINE_START);*/
 		BattleGrids.removeAll();
-		BattleGrids.add(new BattleGrid() {{setPlayer(true);}});
-		BattleGrids.add(new BattleGrid());
+		BattleGrid holdP = (BattleGrid) BattleGrids.add(new BattleGrid() {{setPlayer(true);}});
+		playerBGC.setBattleGridControl(holdP);
+		BattleGrid holdO = (BattleGrid) BattleGrids.add(new BattleGrid());
+		opponentBGC.setBattleGridControl(holdO);
 		BattleGrids.validate();
 		BattleGrids.repaint();
 		
