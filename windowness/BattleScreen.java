@@ -8,8 +8,6 @@ import controllers.BattleGridController;
 
 public class BattleScreen extends JPanel {
 	
-	//public JButton[][] mySquares;
-	
 	BattleGridController playerBGC = new BattleGridController();
 	BattleGridController opponentBGC = new BattleGridController();
 	
@@ -24,8 +22,6 @@ public class BattleScreen extends JPanel {
 	}};
 	
 	JPanel BattleGrids = new JPanel() {{
-		//setPreferredSize(ScreenSizer.getRectangleBasedOnScreenSize(0.75,0.5));
-		//setLayout(new BoxLayout(BattleGrids, BoxLayout.LINE_AXIS));
 		setLayout(new GridLayout(1,2));
 		add(new BattleGrid());
 		add(new BattleGrid());
@@ -39,36 +35,19 @@ public class BattleScreen extends JPanel {
 	JPanel GameLog_HealthBars = new JPanel() {{
 		setLayout(new FlowLayout(FlowLayout.CENTER));
 		setPreferredSize(ScreenSizer.getRectangleBasedOnScreenSize(0.25, 0.25));
-		//setBackground(Color.GREEN);
 	}};
 	
 	GameLog myGameLog = new GameLog(12);
 	HealthBarPanel myHBP = new HealthBarPanel(new Ship[0]);
 	
-	/*JPanel BattleGrids = new JPanel() {{
-		setLayout(new GridLayout(11,11));
-	}};*/
-	
 	public BattleScreen() {
-		//setLayout(new GridLayout(3,2));
 		setLayout(new BorderLayout());
-		//addWithWindowPortionAndLayout(MSGBanner,1,0.5,BorderLayout.PAGE_START);
 		add(MSGBanner, BorderLayout.PAGE_START);
 		add(BattleGrids,BorderLayout.LINE_START);
-		//add(new BattleGrid(), BorderLayout.LINE_START);
-		//addAsHeightBasedSquareWithWindowPortionAndLayout(new BattleGrid(),0.75,BorderLayout.LINE_START);
-		//addAsHeightBasedSquareWithWindowPortionAndLayout(new BattleGrid(),0.75,BorderLayout.LINE_END);
-		//add(new BattleGrid(), BorderLayout.LINE_END);
 		add(MoveyButtons,BorderLayout.SOUTH);
 		GameLog_HealthBars.add(myGameLog);
 		GameLog_HealthBars.add(myHBP);
 		add(GameLog_HealthBars,BorderLayout.LINE_END);
-		//setBorder(BorderFactory.createEtchedBorder());
-		//add(BattleGrids);
-		//add(MSGBanner);
-		//add(BattleGrids);
-		//add(GameLog);
-		//add(MoveyButtons);
 		setVisible(true);
 	}
 	
@@ -84,15 +63,6 @@ public class BattleScreen extends JPanel {
 	}
 	
 	public void reload() {
-		/*remove(BattleGrids);
-		Component[] hold = BattleGrids.getComponents();
-		for(int i = 0; i < hold.length; i++) {
-			if(hold[i].getClass().getName() == "BattleGrid") {
-				System.out.println(hold[i].getClass().getName());
-				((BattleGrid) BattleGrids.getComponents()[i]).reset();
-			}
-		}
-		add(BattleGrids,BorderLayout.LINE_START);*/
 		BattleGrids.removeAll();
 		BattleGrid holdP = (BattleGrid) BattleGrids.add(new BattleGrid() {{setPlayer(true);}});
 		playerBGC.setBattleGridControl(holdP);
@@ -101,6 +71,7 @@ public class BattleScreen extends JPanel {
 		BattleGrids.validate();
 		BattleGrids.repaint();
 		
+		//This is a place holder and will be replaced with proper code later
 		myHBP.resetHBP(new Ship[] {
 				new Ship() {{setName("Destroyer");setSize(3);}},
 				new Ship() {{setName("Patrol Boat");setSize(2);}}

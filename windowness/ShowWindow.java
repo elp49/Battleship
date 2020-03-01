@@ -13,15 +13,11 @@ public class ShowWindow {
 	}
 	
 	public static void showWindow() {
-		//theMainWindow.setScreen(theBattleScreen);
-		//theBattleScreen.setSizes();
 		theMainWindow.setScreen(theMainMenu);
-		//theMainMenu.setSizes();
 		theMainWindow.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
-				System.out.println("blah");
-				//theMainWindow.curScreen.resize();
+				System.out.println("Resizing components");
 				try {
 					theBattleScreen.setSizes();
 				}

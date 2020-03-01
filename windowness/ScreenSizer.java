@@ -36,7 +36,7 @@ public class ScreenSizer {
 		return new Dimension((int) (screenDim.width*wPortion), (int) (screenDim.height*hPortion));
 	}
 	
-	//This font will ensure that the text can be comfortably read on all monitors
+	//This font will ensure that all text can be comfortably read on all monitors
 		//No font should be smaller than this
 		//It is necessary for us, as Nathan has a 4k monitor on his computer, thus everything appears far
 		//smaller otherwise.

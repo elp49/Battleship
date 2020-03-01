@@ -14,39 +14,10 @@ public class GuessButton extends JPanel {
 	
 	public GuessButton() {
 		setLayout(new BorderLayout());
-		setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));//createEtchedBorder());
+		setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 		add(new JLabel(" ") {{
 			setFont(ScreenSizer.SmallestReadableFont);
 		}},BorderLayout.CENTER);
-		/*if(!player) {
-			addMouseListener(new MouseListener() {
-				public void mouseClicked(MouseEvent e){
-					//Do Nothing
-				}
-				public void mouseEntered(MouseEvent e) {
-					if(!player && !clicked) {
-						setBackground(Color.YELLOW);
-					}
-				}
-				public void mouseExited(MouseEvent e) {
-					if(!player && !clicked) {
-						setBackground(Color.getColor("Parent.Background"));
-					}
-				}
-				public void mousePressed(MouseEvent e) {
-					if(!player && !clicked) {
-						setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-					}
-				}
-				public void mouseReleased(MouseEvent e) {
-					if(!player && !clicked) {
-						setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-						//Remove next line and add proper listener later
-						MarkClick();
-					}
-				}
-			});
-		}*/
 		setVisible(true);
 	}
 	
