@@ -4,7 +4,6 @@ public class ApplicationDriver {
 
     public static void main(String[] args) throws Exception {
         Board board1 = new Board();
-        Board board2 = new Board();
 
 
         Ship ships[] = new Ship[5];
