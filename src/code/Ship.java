@@ -37,4 +37,12 @@ public class Ship {
         return false;
     }
 
+    public Ship() { }
+
+    public Ship(String name, int size) {
+        this.name = name;
+        this.size = size;
+        this.hpRemaining = size;
+    }
+
 }
