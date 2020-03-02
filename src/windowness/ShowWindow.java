@@ -8,9 +8,9 @@ public class ShowWindow {
 	public static BattleScreen theBattleScreen = new BattleScreen();
 	public static MainMenu theMainMenu = new MainMenu();
 	
-	public static void main(String[] args) {
-		showWindow();
-	}
+	//public static void main(String[] args) {
+	//	showWindow();
+	//}
 	
 	public static void showWindow() {
 		theMainWindow.setScreen(theMainMenu);
