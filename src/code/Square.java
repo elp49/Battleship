@@ -2,7 +2,8 @@ package code;
 
 public class Square {
 
-    private Ship ship;
+    Ship ship;
+    boolean isHit;
 
     public Ship getShip() {
         return ship;
@@ -17,6 +18,24 @@ public class Square {
             return true;
         }
         return false;
+    }
+
+    public boolean isHit() {
+        return isHit;
+    }
+
+    public void markHit() {
+        isHit = true;
+    }
+
+    public Square() {
+        this.ship = null;
+        this.isHit = false;
+    }
+
+    public Square(Ship ship) {
+        this.ship = ship;
+        this.isHit = false;
     }
 
 }

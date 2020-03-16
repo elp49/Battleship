@@ -2,7 +2,8 @@ package code;
 
 public class Board {
 
-    private Square[][] squares;
+    Square[][] squares;
+    Ship[] ships;
 
     public Square[][] getSquares() {
         return squares;
@@ -12,21 +13,28 @@ public class Board {
         this.squares = squares;
     }
 
-    public int getRowIndex(int row) {
-        // Return Y index. If row is 1, then returns 0 for first index.
-        return row - 1;
+    public Ship[] getShips() {
+        return ships;
     }
 
-    public int getColumnIndex(char column) {
-        // Convert column character to uppercase if not already.
-        char c = Character.toUpperCase(column);
-        // Retrieve ASCII value to test assertion.
-        int ascii = (int) c;
-        // Return X index. If column is A, then returns 0 for first index.
-        return c - 65;
+    public void setShips(Ship[] ships) {
+        this.ships = ships;
     }
 
-    public void placeShipOnBoardVertically(Ship ship, int[] rows, char column) throws Exception {
+    public Board() {
+        squares = new Square[10][10];
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                squares[i][j] = new Square();
+            }
+        }
+    }
+
+    public Square getSquare(int row, int column) {
+        return squares[row][column];
+    }
+
+    /*public void placeShipOnBoardVertically(Ship ship, int[] rows, char column) throws Exception {
         // Assert ship is not null.
         assert ship != null;
         // Get column index.
@@ -80,15 +88,6 @@ public class Board {
         for (int i = 0; i < numColumns; i++) {
             squares[rowIndex][columnIndices[i]].setShip(ship);
         }
-    }
-
-    public Board() {
-        squares = new Square[10][10];
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                squares[i][j] = new Square();
-            }
-        }
-    }
+    }*/
 
 }

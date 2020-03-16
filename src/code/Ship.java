@@ -45,4 +45,10 @@ public class Ship {
         this.hpRemaining = size;
     }
 
+    public void hit() {
+        // Check ship is not already sunk.
+        assert hpRemaining > 0;
+        hpRemaining -= 1;
+    }
+
 }
