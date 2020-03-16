@@ -23,8 +23,8 @@ public class Board {
 
     public Board() {
         squares = new Square[10][10];
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i <= 9; i++) {
+            for (int j = 0; j <= 9; j++) {
                 squares[i][j] = new Square();
             }
         }
