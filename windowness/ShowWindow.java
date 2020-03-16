@@ -4,32 +4,28 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 public class ShowWindow {
-	public static MainWindow theMainWindow = new MainWindow();
 	public static BattleScreen theBattleScreen = new BattleScreen();
-	public static MainMenu theMainMenu = new MainMenu();
+	public static MenuScreen theMenuScreen = new MenuScreen();
+	public static MainWindow theMainWindow = new MainWindow();
 	
 	public static void main(String[] args) {
 		showWindow();
 	}
 	
 	public static void showWindow() {
-		theMainWindow.setScreen(theMainMenu);
+		theMainWindow.setScreen(theMenuScreen);
+		theMainWindow.curScreen.setSizes();
 		theMainWindow.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentResized(ComponentEvent e) {
-				System.out.println("Resizing components");
-				try {
-					theBattleScreen.setSizes();
-				}
-				catch(NullPointerException f) {
-					
-				}
+				theMainWindow.curScreen.setSizes();
 			}
 		});
+		ShowWindow.theMainWindow.myMenuBar.setSurrenderActive(false);
 	}
 	
 	public static void returnToMainMenu() {
-		theMainWindow.setScreen(theMainMenu);
+		theMainWindow.setScreen(theMenuScreen);
 	}
 	
 	public static void beginBattle() {

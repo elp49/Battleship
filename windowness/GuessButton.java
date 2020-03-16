@@ -9,8 +9,8 @@ import javax.swing.border.BevelBorder;
 
 public class GuessButton extends JPanel {
 	
-	public boolean player = false;
-	boolean clicked = false;
+	public boolean isPlayer = false;
+	public boolean isClicked = false;
 	
 	public GuessButton() {
 		setLayout(new BorderLayout());
@@ -22,54 +22,58 @@ public class GuessButton extends JPanel {
 	}
 	
 	public void highlightHover() {
-		if(!player && !clicked) {
+		if(!isPlayer && !isClicked) {
 			setBackground(Color.YELLOW);
 		}
 	}
 	
 	public void unhighlightHover() {
-		if(!player && !clicked) {
+		if(!isPlayer && !isClicked) {
 			setBackground(Color.getColor("Parent.Background"));
 		}
 	}
 	
 	public void press() {
-		if(!player && !clicked) {
+		if(!isPlayer && !isClicked) {
 			setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 		}
 	}
 	
 	public void release() {
-		if(!player && !clicked) {
+		if(!isPlayer && !isClicked) {
 			setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 		}
 	}
 	
-	public void setPlayer(boolean isPlayer) {
-		player = isPlayer;
+	public void setPlayer(boolean player) {
+		isPlayer = player;
 	}
 	
 	private void MarkClick() {
 		setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 		setBackground(Color.LIGHT_GRAY);
-		clicked = true;
+		isClicked = true;
 		validate();
 		repaint();
 	}
 	
 	public void MarkHit() {
-		add(ImageAdd.getImage("HitMarker.png"));
-		MarkClick();
+		if(!isPlayer && !isClicked) {
+			add(ImageAdd.getImage("Images/HitMarker.png"));
+			MarkClick();
+		}
 	}
 	
 	public void MarkMiss() {
-		add(ImageAdd.getImage("MissMarker.png"));
-		MarkClick();
+		if(!isPlayer && !isClicked) {
+			add(ImageAdd.getImage("Images/MissMarker.png"));
+			MarkClick();
+		}
 	}
 	
 	public void reset() {
 		setBackground(Color.getColor("Parent.Background"));
-		clicked = false;
+		isClicked = false;
 		setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 	}
 	

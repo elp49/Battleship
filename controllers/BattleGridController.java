@@ -10,6 +10,7 @@ import javax.swing.border.BevelBorder;
 
 import windowness.BattleGrid;
 import windowness.GuessButton;
+import windowness.ShowWindow;
 
 public class BattleGridController {
 	
@@ -22,6 +23,33 @@ public class BattleGridController {
 		public addButtonListener(int i, int j) {
 			myRow = i;
 			myCol = j;
+		}
+		
+		private char getColLetter(int x) {
+			switch(x) {
+			case 0:
+				return 'A';
+			case 1:
+				return 'B';
+			case 2:
+				return 'C';
+			case 3:
+				return 'D';
+			case 4:
+				return 'E';
+			case 5:
+				return 'F';
+			case 6:
+				return 'G';
+			case 7:
+				return 'H';
+			case 8:
+				return 'I';
+			case 9:
+				return 'J';
+			default:
+				return 'x';
+			}
 		}
 		
 		public void mouseClicked(MouseEvent e){
@@ -37,13 +65,16 @@ public class BattleGridController {
 			myBattleGrid.mySquares[myRow][myCol].press();
 		}
 		public void mouseReleased(MouseEvent e) {
-			myBattleGrid.mySquares[myRow][myCol].release();
-			//if Board.getSquares()[myRow][myCol].hasShip(){
-				myBattleGrid.mySquares[myRow][myCol].MarkHit();
-			//}
-			//else{
-			//	myBattleGrid.mySquares[myRow][myCol].MarkMiss();
-			//}
+			if(!myBattleGrid.mySquares[myRow][myCol].isClicked) {
+				myBattleGrid.mySquares[myRow][myCol].release();
+				ShowWindow.theBattleScreen.log("Fired at " + getColLetter(myCol) + (myRow+1));
+				//if Board.getSquares()[myRow][myCol].hasShip(){
+					myBattleGrid.mySquares[myRow][myCol].MarkHit();
+				//}
+				//else{
+				//	myBattleGrid.mySquares[myRow][myCol].MarkMiss();
+				//}
+			}
 		}
 	}
 	
@@ -51,7 +82,7 @@ public class BattleGridController {
 		myBattleGrid = toControl;
 		
 		//register listeners if this is not the player's battle grid
-		if(!myBattleGrid.mySquares[0][0].player) {
+		if(!myBattleGrid.mySquares[0][0].isPlayer) {
 			for(int i = 0; i < myBattleGrid.mySquares.length; i++) {
 				for(int j = 0; j < myBattleGrid.mySquares[i].length; j++) {
 					myBattleGrid.mySquares[i][j].addMouseListener(new addButtonListener(i,j));
