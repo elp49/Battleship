@@ -11,9 +11,9 @@ public class MainWindow extends JFrame{
 	public int screenHigh = (int) Math.floor(ScreenSizer.getScreenHeight()*screenDefaultPortion);
 	public int screenWid = (int) Math.floor(ScreenSizer.getScreenWidth()*screenDefaultPortion);
 	
-	public JPanel curScreen = new JPanel();
+	public ScreenPanel curScreen = ShowWindow.theMenuScreen;
 	
-	public JMenu Game_Menu = new JMenu("Game") {{
+	/*public JMenu Game_Menu = new JMenu("Game") {{
 		setMnemonic(KeyEvent.VK_G);
 		add(new JMenuItem("New Game") {{
 			setFont(ScreenSizer.SmallestReadableFont);
@@ -68,19 +68,19 @@ public class MainWindow extends JFrame{
 		add(Game_Menu);
 		add(Settings_Menu);
 		add(Help_Menu);
-	}};
-	
-	/*JButton testio = new JButton("TEST") {{
-		setFont(new Font("Arial", Font.PLAIN, (int)screenWid/30));
 	}};*/
+	
+	public MenuBar myMenuBar = new MenuBar();
 	
 	public MainWindow() {
 		setTitle("BATTLESHIP");
-		getContentPane().setLayout(new BorderLayout());
 		
-		//getContentPane().add(testio);
-		getContentPane().add(myMenus,BorderLayout.PAGE_START);
-		getContentPane().add(curScreen,BorderLayout.CENTER);
+		Container contentPane = getContentPane();
+		
+		contentPane.setLayout(new BorderLayout());
+		
+		contentPane.add(myMenuBar,BorderLayout.PAGE_START);
+		contentPane.add(curScreen,BorderLayout.CENTER);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(true);
@@ -88,16 +88,12 @@ public class MainWindow extends JFrame{
 		setVisible(true);
 	}
 	
-	public void setScreen(JPanel screen) {
+	public void setScreen(ScreenPanel screen) {
 		getContentPane().remove(curScreen);
 		curScreen = screen;
 		getContentPane().add(curScreen);
-		//curScreen.setPreferredSize(new Dimension(getSize().width-2,getSize().height-2));
+		curScreen.setSizes();
 		validate();
 		repaint();
-		//curScreen = screen;
-		//getContentPane().remove(curScreen);
-		//curScreen = screen;
-		//getContentPane().add(curScreen);
 	}
 }

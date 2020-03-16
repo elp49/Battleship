@@ -5,11 +5,14 @@ import java.awt.*;
 
 import code.Ship;
 import controllers.BattleGridController;
+import controllers.HealthBarPanelController;
 
-public class BattleScreen extends JPanel {
+public class BattleScreen extends ScreenPanel {
 	
 	BattleGridController playerBGC = new BattleGridController();
 	BattleGridController opponentBGC = new BattleGridController();
+	
+	HealthBarPanelController myHBPC = new HealthBarPanelController();
 	
 	JPanel MSGBanner = new JPanel() {{
 		setLayout(new FlowLayout());
@@ -29,7 +32,9 @@ public class BattleScreen extends JPanel {
 	
 	JPanel MoveyButtons = new JPanel() {{
 		setPreferredSize(ScreenSizer.getRectangleBasedOnScreenSize(0.325, 0.1));
-		setBackground(Color.BLUE);
+		//setBackground(Color.BLUE);
+		setLayout(new BorderLayout());
+		//add(new MoveShipButtons());
 	}};
 	
 	JPanel GameLog_HealthBars = new JPanel() {{
@@ -40,11 +45,21 @@ public class BattleScreen extends JPanel {
 	GameLog myGameLog = new GameLog(12);
 	HealthBarPanel myHBP = new HealthBarPanel(new Ship[0]);
 	
+	MoveShipButtons myMoveShipButtons = new MoveShipButtons();
+	BattleScreen_GameButtons myBSGB = new BattleScreen_GameButtons();
+	ReadyButton myReady = new ReadyButton();
+	
 	public BattleScreen() {
 		setLayout(new BorderLayout());
 		add(MSGBanner, BorderLayout.PAGE_START);
 		add(BattleGrids,BorderLayout.LINE_START);
+		
+		MoveyButtons.add(myMoveShipButtons,BorderLayout.WEST);
+		MoveyButtons.add(myBSGB,BorderLayout.EAST);
+		MoveyButtons.add(myReady,BorderLayout.CENTER);
 		add(MoveyButtons,BorderLayout.SOUTH);
+		//myMoveShipButtons.setPreferredSize(new Dimension((int) (myMoveShipButtons.getParent().getBounds().width * 0.4),(int) (myMoveShipButtons.getParent().getBounds().height)));
+		
 		GameLog_HealthBars.add(myGameLog);
 		GameLog_HealthBars.add(myHBP);
 		add(GameLog_HealthBars,BorderLayout.LINE_END);
@@ -54,7 +69,11 @@ public class BattleScreen extends JPanel {
 	public void setSizes() {
 		setSize(new Dimension(super.getParent().getBounds().width,super.getParent().getBounds().height));
 		BattleGrids.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width * 0.8),super.getParent().getBounds().height));
-		MoveyButtons.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width),(int) (super.getParent().getBounds().height*0.1)));
+		MoveyButtons.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width),(int) (super.getParent().getBounds().height*0.2)));
+		myMoveShipButtons.resizeButtons();
+		myBSGB.resizeButtons();
+		//myMoveShipButtons.setPreferredSize(new Dimension((int) (myMoveShipButtons.getParent().getBounds().width * 0.4),(int) (myMoveShipButtons.getParent().getBounds().height)));
+		//myBSGB.setPreferredSize(new Dimension((int) (myBSGB.getParent().getBounds().width * 0.4),(int) (myBSGB.getParent().getBounds().height)));
 		GameLog_HealthBars.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width * 0.2),super.getParent().getBounds().height));
 		MSGBanner.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width),(int) (super.getParent().getBounds().height*0.035)));
 		myGameLog.resizeLog();
@@ -65,6 +84,7 @@ public class BattleScreen extends JPanel {
 	public void reload() {
 		BattleGrids.removeAll();
 		BattleGrid holdP = (BattleGrid) BattleGrids.add(new BattleGrid() {{setPlayer(true);}});
+		//new ShipGraphic(new Ship() {{setName("Carrier");setSize(5);}},holdP,0,0);
 		playerBGC.setBattleGridControl(holdP);
 		BattleGrid holdO = (BattleGrid) BattleGrids.add(new BattleGrid());
 		opponentBGC.setBattleGridControl(holdO);
@@ -73,13 +93,21 @@ public class BattleScreen extends JPanel {
 		
 		//This is a place holder and will be replaced with proper code later
 		myHBP.resetHBP(new Ship[] {
+				new Ship() {{setName("Carrier");setSize(5);}},
+				new Ship() {{setName("Battleship");setSize(4);}},
 				new Ship() {{setName("Destroyer");setSize(3);}},
+				new Ship() {{setName("Submarine");setSize(3);}},
 				new Ship() {{setName("Patrol Boat");setSize(2);}}
 		});
+		
+		myHBPC.setHBPControl(myHBP);
 		
 		myGameLog.resetLog();
 		myGameLog.resizeLog();
 		myGameLog.log("Starting New Game",Color.CYAN);
+		
+		myMoveShipButtons.resizeButtons();
+		myBSGB.resizeButtons();
 	}
 	
 	public void log(String toLog) {

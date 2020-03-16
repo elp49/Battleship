@@ -9,8 +9,8 @@ import javax.swing.*;
 
 public class HealthBarPanel extends JPanel{
 	
-	HealthBarData[] myHBD;
-	Ship[] myShipInfo;
+	public HealthBarData[] myHBD;
+	public Ship[] myShipInfo;
 	int myPreferredHeight;
 	
 	public HealthBarPanel(Ship[] myShips) {
@@ -18,7 +18,7 @@ public class HealthBarPanel extends JPanel{
 		myHBD = new HealthBarData[myShips.length];
 		for(int i = 0; i < myShips.length; i++) {
 			//We'll handle the file names at a later date
-			myHBD[i] = new HealthBarData("FakeFile", myShips[i].getName(), myShips[i].getSize());
+			myHBD[i] = new HealthBarData("Images/" + myShips[i].getName() + "_Top.png", myShips[i].getName(), myShips[i].getSize());
 			add(myHBD[i]);
 		}
 		if(myHBD.length > 0) {
@@ -43,12 +43,21 @@ public class HealthBarPanel extends JPanel{
 		System.err.println("Error! Attempted visualizing damage on nonexistent ship!");
 	}
 	
+	public void visualizeSink(Ship ship) {
+		for(int i = 0; i < myShipInfo.length; i++) {
+			if(ship.getName()==myShipInfo[i].getName()) {
+				myHBD[i].visualizeSink();
+				return;
+			}
+		}
+	}
+	
 	public void resetHBP(Ship[] myShips) {
 		removeAll();
 		myHBD = new HealthBarData[myShips.length];
 		for(int i = 0; i < myShips.length; i++) {
 			//We'll handle the file names at a later date
-			myHBD[i] = new HealthBarData("FakeFile", myShips[i].getName(), myShips[i].getSize());
+			myHBD[i] = new HealthBarData("Images/" + myShips[i].getName() + "_Top.png", myShips[i].getName(), myShips[i].getSize());
 			add(myHBD[i]);
 		}
 		if(myHBD.length > 0) {
@@ -62,6 +71,9 @@ public class HealthBarPanel extends JPanel{
 	
 	public void resizeHBP() {
 		setPreferredSize(new Dimension(getParent().getPreferredSize().width,myPreferredHeight));
+		/*for(int i = 0; i < myHBD.length; i++) {
+			myHBD[i].resizeHealthUnitVisuals();
+		}*/
 	}
 	
 }

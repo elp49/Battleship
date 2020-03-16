@@ -3,12 +3,13 @@ package windowness;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
 public class HealthBarData extends JPanel{
 	
-	JPanel myPicHolder;
+	public JPanel myPicHolder;
 	JLabel myShipName;
 	HealthUnitVisual[] myHealthView;
 	JPanel myHealthBar = new JPanel(){{
@@ -34,6 +35,12 @@ public class HealthBarData extends JPanel{
 		add(myShipName);
 		add(myHealthBar);
 	}
+	
+	/*public void resizeHealthUnitVisuals() {
+		for(int i = 0; i < myHealthView.length; i++) {
+			myHealthView[i].setPreferredSize(new Dimension((int) (super.getParent().getBounds().width * 0.2),(int) (super.getParent().getBounds().width * 0.2)));
+		}
+	}*/
 	
 	public void visualizeDamage(int pos) {
 		myHealthView[pos].takeDamage();
