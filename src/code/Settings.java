@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Settings implements Serializable {
 
-    String filename = "Settings.ser";
+    static String filename = "settings.ser";
 
     public enum Language {ENGLISH}
 
@@ -34,9 +34,17 @@ public class Settings implements Serializable {
         return soundEffectsOn;
     }
 
-    public void setSoundEffectsOn(boolean soundEffectsOn) {
-        if (this.soundEffectsOn != soundEffectsOn) {
-            this.soundEffectsOn = soundEffectsOn;
+    public void turnSoundEffectsOn() {
+        if (this.soundEffectsOn != true) {
+            this.soundEffectsOn = true;
+            // Update all system sound effects.
+            this.soundEffectEventIDs.forEach((id) -> updateSystemSoundEffect(id));
+        }
+    }
+
+    public void turnSoundEffectsOff() {
+        if (this.soundEffectsOn != false) {
+            this.soundEffectsOn = true;
             // Update all system sound effects.
             this.soundEffectEventIDs.forEach((id) -> updateSystemSoundEffect(id));
         }
@@ -58,9 +66,17 @@ public class Settings implements Serializable {
         return musicOn;
     }
 
-    public void setMusicOn(boolean musicOn) {
-        if (this.musicOn != musicOn) {
-            this.musicOn = musicOn;
+    public void turnMusicOn() {
+        if (this.musicOn != true) {
+            this.musicOn = true;
+            // Update system music.
+            // ...
+        }
+    }
+
+    public void turnMusicOff() {
+        if (this.musicOn != false) {
+            this.musicOn = false;
             // Update system music.
             // ...
         }
@@ -197,9 +213,10 @@ public class Settings implements Serializable {
     }
 
     public static Settings loadSettings() {
-        Settings settings = null;
+        Settings settings;
+
         try {
-            settings = settings.deserialize();
+            settings = Settings.deserialize();
         } catch (IOException | ClassNotFoundException e) {
             // If deserialization failed, then load default settings.
             e.printStackTrace();
@@ -207,6 +224,7 @@ public class Settings implements Serializable {
             // Serialize default settings for future use.
             settings.serialize();
         }
+
         // Update the application's settings.
         settings.updateAllSystemSettings();
         // Return settings.
@@ -223,6 +241,7 @@ public class Settings implements Serializable {
     public void serialize() {
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
+
         try {
             // Serialize Settings object to a stream of bytes.
             fos = new FileOutputStream(this.filename);
@@ -243,17 +262,18 @@ public class Settings implements Serializable {
         }
     }
 
-    public Settings deserialize() throws IOException, ClassNotFoundException {
+    public static Settings deserialize() throws IOException, ClassNotFoundException {
         // Check if settings file exists.
-        File file = new File(this.filename);
+        File file = new File(Settings.filename);
         if (!file.exists() || !file.isFile())
-            throw new FileNotFoundException(this.filename);
+            throw new FileNotFoundException(Settings.filename);
         Settings settings = null;
         FileInputStream fis = null;
         ObjectInputStream ois = null;
+
         try {
             // Deserialize Settings object from a stream of bytes.
-            fis = new FileInputStream(this.filename);
+            fis = new FileInputStream(Settings.filename);
             ois = new ObjectInputStream(fis);
             settings = (Settings) ois.readObject();
         } finally {

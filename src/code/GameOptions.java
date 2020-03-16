@@ -4,26 +4,14 @@ import java.io.*;
 
 public class GameOptions implements Serializable {
 
-    String filename = "GameOptions.ser";
+    static String filename = "options.ser";
 
-    int moveTime;
     int setupTime;
+    int moveTime;
     static final int MAX_MOVE_TIME = 99;
     static final int MIN_MOVE_TIME = 1;
     static final int MAX_SETUP_TIME = 99;
     static final int MIN_SETUP_TIME = 1;
-
-    public int getMoveTime() {
-        return moveTime;
-    }
-
-    public void setMoveTime(int moveTime) {
-        if (moveTime >= MIN_MOVE_TIME && moveTime <= MAX_MOVE_TIME && moveTime != this.moveTime) {
-            this.moveTime = moveTime;
-            // Update application's move time.
-            updateApplicationsMoveTime();
-        }
-    }
 
     public int getSetupTime() {
         return setupTime;
@@ -38,25 +26,21 @@ public class GameOptions implements Serializable {
         }
     }
 
+    public int getMoveTime() {
+        return moveTime;
+    }
+
+    public void setMoveTime(int moveTime) {
+        if (moveTime >= MIN_MOVE_TIME && moveTime <= MAX_MOVE_TIME && moveTime != this.moveTime) {
+            this.moveTime = moveTime;
+            // Update application's move time.
+            updateApplicationsMoveTime();
+        }
+    }
+
     public GameOptions() {
-        this.moveTime = 5;
         this.setupTime = 10;
-    }
-
-    public void incrementMoveTime() {
-        if (this.moveTime < MAX_MOVE_TIME) {
-            this.moveTime += 1;
-            // Update application's move time.
-            updateApplicationsMoveTime();
-        }
-    }
-
-    public void decrementMoveTime() {
-        if (this.moveTime > MIN_MOVE_TIME) {
-            this.moveTime -= 1;
-            // Update application's move time.
-            updateApplicationsMoveTime();
-        }
+        this.moveTime = 5;
     }
 
     public void incrementSetupTime() {
@@ -75,9 +59,20 @@ public class GameOptions implements Serializable {
         }
     }
 
-    public void updateApplicationsMoveTime() {
-        // this.moveTime
-        // ...
+    public void incrementMoveTime() {
+        if (this.moveTime < MAX_MOVE_TIME) {
+            this.moveTime += 1;
+            // Update application's move time.
+            updateApplicationsMoveTime();
+        }
+    }
+
+    public void decrementMoveTime() {
+        if (this.moveTime > MIN_MOVE_TIME) {
+            this.moveTime -= 1;
+            // Update application's move time.
+            updateApplicationsMoveTime();
+        }
     }
 
     public void updateApplicationsSetupTime() {
@@ -85,17 +80,23 @@ public class GameOptions implements Serializable {
         // ...
     }
 
+    public void updateApplicationsMoveTime() {
+        // this.moveTime
+        // ...
+    }
+
     public void updateAllGameOptions() {
         // ...
-        updateApplicationsMoveTime();
         updateApplicationsSetupTime();
+        updateApplicationsMoveTime();
         // ...
     }
 
     public static GameOptions loadGameOptions() {
-        GameOptions gameOptions = null;
+        GameOptions gameOptions;
+
         try {
-            gameOptions = gameOptions.deserialize();
+            gameOptions = GameOptions.deserialize();
         } catch (IOException | ClassNotFoundException e) {
             // If deserialization failed, then load default game options.
             e.printStackTrace();
@@ -103,6 +104,7 @@ public class GameOptions implements Serializable {
             // Serialize default game options for future use.
             gameOptions.serialize();
         }
+
         // Update the game options.
         gameOptions.updateAllGameOptions();
         // Return game options.
@@ -119,6 +121,7 @@ public class GameOptions implements Serializable {
     public void serialize() {
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
+
         try {
             // Serialize GameOptions object to a stream of bytes.
             fos = new FileOutputStream(this.filename);
@@ -139,17 +142,18 @@ public class GameOptions implements Serializable {
         }
     }
 
-    public GameOptions deserialize() throws IOException, ClassNotFoundException {
+    public static GameOptions deserialize() throws IOException, ClassNotFoundException {
         // Check if game options file exists.
-        File file = new File(this.filename);
+        File file = new File(GameOptions.filename);
         if (!file.exists() || !file.isFile())
-            throw new FileNotFoundException(this.filename);
+            throw new FileNotFoundException(GameOptions.filename);
         GameOptions gameOptions = null;
         FileInputStream fis = null;
         ObjectInputStream ois = null;
+
         try {
             // Deserialize GameOptions object from a stream of bytes.
-            fis = new FileInputStream(this.filename);
+            fis = new FileInputStream(GameOptions.filename);
             ois = new ObjectInputStream(fis);
             gameOptions = (GameOptions) ois.readObject();
         } finally {
