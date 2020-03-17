@@ -87,7 +87,6 @@ public class GuessButton extends JPanel {
 	public void DisplayShip(String ship, int section) {
 		String imgName = "Images/" + ship + "_Top_sect" + section + ".png";
 		myImageNames.add(imgName);
-		//add(ImageAdd.getImage(imgName));
 		add(ImageAdd.getImage(imgName,getBounds().width,getBounds().height));
 		validate();
 		repaint();
@@ -96,6 +95,8 @@ public class GuessButton extends JPanel {
 	public void RemoveShip() {
 		myImageNames.remove(0);
 		removeAll();
+		validate();
+		repaint();
 	}
 	
 	public void resizeImage() {

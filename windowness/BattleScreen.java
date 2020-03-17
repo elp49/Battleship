@@ -6,6 +6,7 @@ import java.awt.*;
 import code.Ship;
 import controllers.BattleGridController;
 import controllers.HealthBarPanelController;
+import controllers.MoveShipButtonController;
 
 public class BattleScreen extends ScreenPanel {
 	
@@ -52,6 +53,8 @@ public class BattleScreen extends ScreenPanel {
 	
 	public BattleGrid playerBG = new BattleGrid();
 	public BattleGrid opponentBG = new BattleGrid();
+	
+	MoveShipButtonController myMSBC = new MoveShipButtonController();
 	
 	public BattleScreen() {
 		setLayout(new BorderLayout());
@@ -107,6 +110,8 @@ public class BattleScreen extends ScreenPanel {
 		});
 		
 		myHBPC.setHBPControl(myHBP);
+		
+		myMSBC.setMSBControl(myMoveShipButtons);
 		
 		myGameLog.resetLog();
 		myGameLog.resizeLog();

@@ -20,6 +20,7 @@ public class HealthBarPanelController {
 		boolean shipPlaced = false;
 		Ship myShip;
 		String ShipName;
+		int[][] spaces;
 		
 		public addButtonListener(Ship ship) {
 			ShipName = ship.getName();
@@ -32,9 +33,11 @@ public class HealthBarPanelController {
 		
 		public void placeShipStartingAt(int row, int col, Board on) {
 			int curCol = col;
+			spaces = new int[myShip.getSize()][2];
 			for(;curCol < col + myShip.getSize();curCol++) {
 				on.getSquare(row, curCol).setShip(myShip);
 				ShowWindow.theBattleScreen.playerBG.mySquares[row][curCol].DisplayShip(myShip.getName(), curCol-col+1);
+				spaces[curCol-col] = new int[]{row,curCol};
 			}
 			shipPlaced = true;
 		}
@@ -46,7 +49,7 @@ public class HealthBarPanelController {
 			Board playerBoard = ShowWindow.curBattle.getPlayerBoard();
 			int squaresInARow = 0;
 			for(int i = 0; i < playerBoard.getSquares().length && !shipPlaced; i++) {
-				for(int j = 0; j < playerBoard.getSquares()[i].length && j + myShip.getSize() < playerBoard.getSquares()[i].length && !shipPlaced; j++) {
+				for(int j = 0; j < playerBoard.getSquares()[i].length && j + myShip.getSize() <= playerBoard.getSquares()[i].length && !shipPlaced; j++) {
 					for(int k = j; k < myShip.getSize(); k++) {
 						if(playerBoard.getSquare(i, j).hasShip()) {
 							break;
@@ -90,6 +93,7 @@ public class HealthBarPanelController {
 					shipPlaced = false;
 				}
 			}*/
+			MoveShipButtonController.setPrevShip(myShip, spaces);
 			ShowWindow.theBattleScreen.log("Placed " + ShipName);
 			GameplayFunctions.numShipsPlaced++;
 			GameplayFunctions.CheckReady();
