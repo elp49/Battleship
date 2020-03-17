@@ -66,4 +66,12 @@ public class MoveShipButtons extends JPanel{
 		//repaint();
 	}
 	
+	public void setActive(boolean a) {
+		MoveUp.setEnabled(a);
+		MoveDown.setEnabled(a);
+		MoveLeft.setEnabled(a);
+		MoveRight.setEnabled(a);
+		Rotate.setEnabled(a);
+	}
+	
 }

@@ -85,4 +85,12 @@ public class BattleGrid extends JPanel{
 			}
 		}
 	}
+	
+	public void setActive(boolean a) {
+		for(int i = 0; i < mySquares.length; i++) {
+			for(int j = 0; j < mySquares[i].length; j++) {
+				mySquares[i][j].isClicked = !a;
+			}
+		}
+	}
 }

@@ -78,7 +78,6 @@ public class BattleScreen extends ScreenPanel {
 		BattleGrids.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width * 0.8),super.getParent().getBounds().height));
 		MoveyButtons.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width),(int) (super.getParent().getBounds().height*0.2)));
 		myMoveShipButtons.resizeButtons();
-		myBSGB.resizeButtons();
 		//myMoveShipButtons.setPreferredSize(new Dimension((int) (myMoveShipButtons.getParent().getBounds().width * 0.4),(int) (myMoveShipButtons.getParent().getBounds().height)));
 		//myBSGB.setPreferredSize(new Dimension((int) (myBSGB.getParent().getBounds().width * 0.4),(int) (myBSGB.getParent().getBounds().height)));
 		GameLog_HealthBars.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width * 0.2),super.getParent().getBounds().height));
@@ -88,6 +87,7 @@ public class BattleScreen extends ScreenPanel {
 		repaint();
 		playerBG.resizeImages();
 		opponentBG.resizeImages();
+		myBSGB.resizeButtons();
 	}
 	
 	public void reload() {

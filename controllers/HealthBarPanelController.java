@@ -16,7 +16,6 @@ public class HealthBarPanelController {
 	private HealthBarPanel myHBP;
 	
 	private class addButtonListener implements MouseListener{
-		boolean isPlacingShips = true;
 		boolean shipPlaced = false;
 		Ship myShip;
 		String ShipName;
@@ -25,10 +24,6 @@ public class HealthBarPanelController {
 		public addButtonListener(Ship ship) {
 			ShipName = ship.getName();
 			myShip = ship;
-		}
-		
-		public void battleStarted() {
-			isPlacingShips = false;
 		}
 		
 		public void placeShipStartingAt(int row, int col, Board on) {
@@ -47,7 +42,26 @@ public class HealthBarPanelController {
 				return;
 			}
 			Board playerBoard = ShowWindow.curBattle.getPlayerBoard();
-			int squaresInARow = 0;
+			//int[][] mySquares = new int[myShip.getSize()][2];
+			spaces = new int[myShip.getSize()][2];
+			for(int i = 0; i < playerBoard.getSquares().length && !shipPlaced; i++) {
+				for(int j = 0; j < playerBoard.getSquares()[i].length && j + myShip.getSize() < playerBoard.getSquares()[i].length && !shipPlaced; j++) {
+					for(int k = 0; k < myShip.getSize(); k++) {
+						if(playerBoard.getSquare(i, j).hasShip()) {
+							shipPlaced = false;
+							break;
+						}
+						spaces[k] = new int[] {i,j};
+						shipPlaced = true;
+						j++;
+					}
+				}
+			}
+			for(int k = 0; k < spaces.length; k++) {
+				playerBoard.getSquare(spaces[k][0], spaces[k][1]).setShip(myShip);
+				ShowWindow.theBattleScreen.playerBG.mySquares[spaces[k][0]][spaces[k][1]].DisplayShip(myShip.getName(), k+1);
+			}
+			/*int squaresInARow = 0;
 			for(int i = 0; i < playerBoard.getSquares().length && !shipPlaced; i++) {
 				for(int j = 0; j < playerBoard.getSquares()[i].length && j + myShip.getSize() <= playerBoard.getSquares()[i].length && !shipPlaced; j++) {
 					for(int k = j; k < myShip.getSize(); k++) {
@@ -62,7 +76,7 @@ public class HealthBarPanelController {
 						}
 					}
 				}
-			}
+			}*/
 			/*char[] myCols = new char[myShip.getSize()];
 			char holdCol = 'A';
 			for(int i = 0; i < myCols.length;i++) {

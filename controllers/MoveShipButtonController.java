@@ -17,6 +17,8 @@ public class MoveShipButtonController{
 	private static int[][] spacesFilled;
 	private static boolean shipIsVertical;
 	
+	public static boolean isPlacingShips = false;
+	
 	public static void setPrevShip(Ship ship, int[][] spaces) {
 		prevShip = ship;
 		spacesFilled = spaces;
@@ -208,9 +210,12 @@ public class MoveShipButtonController{
 		for(int i = 0; i < spacesFilled.length; i++) {
 			//if so, we can't rotate, so restore the original spaces
 			if(ShowWindow.curBattle.getPlayerBoard().getSquare(spacesFilled[i][0], spacesFilled[i][1]).hasShip()) {
-				spacesFilled = originalSpaces;
+				for(int j = 0; j < spacesFilled.length; j++) {
+					for(int k = 0; k < spacesFilled[j].length; k++) {
+						spacesFilled[j][k] = originalSpaces[j][k];
+					}
+				}
 				shipIsVertical = !shipIsVertical;
-				
 				break;
 			}
 		}
@@ -238,7 +243,9 @@ public class MoveShipButtonController{
 	private class addDownListener implements MouseListener{
 		
 		public void mouseClicked(MouseEvent e){
-			MoveShipButtonController.MoveShipDown();
+			if(isPlacingShips) {
+				MoveShipButtonController.MoveShipDown();
+			}
 		}
 		public void mouseEntered(MouseEvent e) {
 			
@@ -257,7 +264,9 @@ public class MoveShipButtonController{
 	private class addUpListener implements MouseListener{
 		
 		public void mouseClicked(MouseEvent e){
-			MoveShipButtonController.MoveShipUp();
+			if(isPlacingShips) {
+				MoveShipButtonController.MoveShipUp();
+			}
 		}
 		public void mouseEntered(MouseEvent e) {
 			
@@ -276,7 +285,9 @@ public class MoveShipButtonController{
 	private class addRightListener implements MouseListener{
 		
 		public void mouseClicked(MouseEvent e){
-			MoveShipButtonController.MoveShipRight();
+			if(isPlacingShips) {
+				MoveShipButtonController.MoveShipRight();
+			}
 		}
 		public void mouseEntered(MouseEvent e) {
 			
@@ -295,7 +306,9 @@ public class MoveShipButtonController{
 	private class addLeftListener implements MouseListener{
 		
 		public void mouseClicked(MouseEvent e){
-			MoveShipButtonController.MoveShipLeft();
+			if(isPlacingShips) {
+				MoveShipButtonController.MoveShipLeft();
+			}
 		}
 		public void mouseEntered(MouseEvent e) {
 			
@@ -313,7 +326,9 @@ public class MoveShipButtonController{
 	
 	private class addRotateListener implements MouseListener{
 		public void mouseClicked(MouseEvent e){
-			MoveShipButtonController.RotateShip();
+			if(isPlacingShips) {
+				MoveShipButtonController.RotateShip();
+			}
 		}
 		public void mouseEntered(MouseEvent e) {
 			

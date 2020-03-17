@@ -39,6 +39,20 @@ public class ImageAdd {
 		return myPicHolder;
 	}
 	
+	public static JPanel getScaledImage(String pic, double scaling) {
+		JPanel myPicHolder = new JPanel();
+		try {
+			BufferedImage myPic = ImageIO.read(new File(pic));
+			Image hold = myPic.getScaledInstance((int) (myPic.getWidth()*scaling), (int) (myPic.getHeight()*scaling), Image.SCALE_SMOOTH);
+			myPicHolder.add(new JLabel(new ImageIcon(hold)));
+		}
+		catch(IOException e) {
+			System.out.println("Attempted to make image from nonexistent file \"" + pic + "\"! Placeholder loaded instead.");
+			myPicHolder = new PlaceHolderGraphic();
+		}
+		return myPicHolder;
+	}
+	
 	/*public static JPanel getImage(String pic, double angle) {
 		JPanel myPicHolder = new JPanel();
 		try {
