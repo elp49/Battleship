@@ -30,11 +30,37 @@ public class HealthBarPanelController {
 			isPlacingShips = false;
 		}
 		
+		public void placeShipStartingAt(int row, int col, Board on) {
+			int curCol = col;
+			for(;curCol < col + myShip.getSize();curCol++) {
+				on.getSquare(row, curCol).setShip(myShip);
+				ShowWindow.theBattleScreen.playerBG.mySquares[row][curCol].DisplayShip(myShip.getName(), curCol-col+1);
+			}
+			shipPlaced = true;
+		}
+		
 		public void mouseClicked(MouseEvent e){
 			if(shipPlaced) {
 				return;
 			}
-			char[] myCols = new char[myShip.getSize()];
+			Board playerBoard = ShowWindow.curBattle.getPlayerBoard();
+			int squaresInARow = 0;
+			for(int i = 0; i < playerBoard.getSquares().length && !shipPlaced; i++) {
+				for(int j = 0; j < playerBoard.getSquares()[i].length && j + myShip.getSize() < playerBoard.getSquares()[i].length && !shipPlaced; j++) {
+					for(int k = j; k < myShip.getSize(); k++) {
+						if(playerBoard.getSquare(i, j).hasShip()) {
+							break;
+						}
+						else {
+							squaresInARow++;
+						}
+						if(squaresInARow == myShip.getSize()) {
+							placeShipStartingAt(i,j,playerBoard);
+						}
+					}
+				}
+			}
+			/*char[] myCols = new char[myShip.getSize()];
 			char holdCol = 'A';
 			for(int i = 0; i < myCols.length;i++) {
 				myCols[i] = holdCol;
@@ -63,7 +89,7 @@ public class HealthBarPanelController {
 					}
 					shipPlaced = false;
 				}
-			}
+			}*/
 			ShowWindow.theBattleScreen.log("Placed " + ShipName);
 			GameplayFunctions.numShipsPlaced++;
 			GameplayFunctions.CheckReady();

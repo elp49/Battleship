@@ -12,6 +12,9 @@ import windowness.BattleGrid;
 import windowness.GuessButton;
 import windowness.ShowWindow;
 
+import code.BattleSession;
+import code.Board;
+
 public class BattleGridController {
 	
 	private BattleGrid myBattleGrid;
@@ -68,8 +71,24 @@ public class BattleGridController {
 			if(!myBattleGrid.mySquares[myRow][myCol].isClicked) {
 				myBattleGrid.mySquares[myRow][myCol].release();
 				ShowWindow.theBattleScreen.log("Fired at " + getColLetter(myCol) + (myRow+1));
-				//if Board.getSquares()[myRow][myCol].hasShip(){
+				Board toCheck;
+				if(myBattleGrid.mySquares[0][0].isPlayer) {
+					toCheck = ShowWindow.curBattle.getPlayerBoard();
+				}
+				else {
+					toCheck = ShowWindow.curBattle.getOpponentBoard();
+				}
+				
+				if(toCheck.getSquare(myRow, myCol).hasShip()) {
 					myBattleGrid.mySquares[myRow][myCol].MarkHit();
+				}
+				else {
+					myBattleGrid.mySquares[myRow][myCol].MarkMiss();
+				}
+				
+				//ShowWindow.curBattle.fire(getColLetter(myCol), myRow);
+				//if Board.getSquares()[myRow][myCol].hasShip(){
+					//myBattleGrid.mySquares[myRow][myCol].MarkHit();
 				//}
 				//else{
 				//	myBattleGrid.mySquares[myRow][myCol].MarkMiss();

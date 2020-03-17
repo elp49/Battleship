@@ -7,10 +7,13 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 
+import java.util.ArrayList;
+
 public class GuessButton extends JPanel {
 	
 	public boolean isPlayer = false;
 	public boolean isClicked = false;
+	private ArrayList<String> myImageNames = new ArrayList<String>();
 	
 	public GuessButton() {
 		setLayout(new BorderLayout());
@@ -59,14 +62,18 @@ public class GuessButton extends JPanel {
 	
 	public void MarkHit() {
 		if(!isPlayer && !isClicked) {
-			add(ImageAdd.getImage("Images/HitMarker.png"));
+			String imgName = "Images/HitMarker.png";
+			myImageNames.add(imgName);
+			add(ImageAdd.getImage(imgName,getBounds().width,getBounds().height));
 			MarkClick();
 		}
 	}
 	
 	public void MarkMiss() {
 		if(!isPlayer && !isClicked) {
-			add(ImageAdd.getImage("Images/MissMarker.png"));
+			String imgName = "Images/MissMarker.png";
+			myImageNames.add(imgName);
+			add(ImageAdd.getImage(imgName,getBounds().width,getBounds().height));
 			MarkClick();
 		}
 	}
@@ -75,6 +82,32 @@ public class GuessButton extends JPanel {
 		setBackground(Color.getColor("Parent.Background"));
 		isClicked = false;
 		setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+	}
+	
+	public void DisplayShip(String ship, int section) {
+		String imgName = "Images/" + ship + "_Top_sect" + section + ".png";
+		myImageNames.add(imgName);
+		//add(ImageAdd.getImage(imgName));
+		add(ImageAdd.getImage(imgName,getBounds().width,getBounds().height));
+		validate();
+		repaint();
+	}
+	
+	public void RemoveShip() {
+		myImageNames.remove(0);
+		removeAll();
+	}
+	
+	public void resizeImage() {
+		if(myImageNames.isEmpty()) {
+			return;
+		}
+		removeAll();
+		for(String i : myImageNames) {
+			add(ImageAdd.getImage(i,getBounds().width,getBounds().height));
+		}
+		validate();
+		repaint();
 	}
 	
 }

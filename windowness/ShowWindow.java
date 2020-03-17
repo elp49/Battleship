@@ -3,10 +3,15 @@ package windowness;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
+import code.BattleSession;
+import code.GameOptions;
+
 public class ShowWindow {
 	public static BattleScreen theBattleScreen = new BattleScreen();
 	public static MenuScreen theMenuScreen = new MenuScreen();
 	public static MainWindow theMainWindow = new MainWindow();
+	
+	public static BattleSession curBattle;
 	
 	public static void main(String[] args) {
 		showWindow();
@@ -29,6 +34,7 @@ public class ShowWindow {
 	}
 	
 	public static void beginBattle() {
+		curBattle = new BattleSession("blah","blah",GameOptions.loadGameOptions());
 		theMainWindow.setScreen(theBattleScreen);
 		theBattleScreen.reload();
 		theBattleScreen.setSizes();

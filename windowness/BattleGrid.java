@@ -70,6 +70,14 @@ public class BattleGrid extends JPanel{
 		}
 	}
 	
+	public void resizeImages() {
+		for(int i = 0; i < mySquares.length; i++) {
+			for(int j = 0; j < mySquares[i].length; j++) {
+				mySquares[i][j].resizeImage();
+			}
+		}
+	}
+	
 	public void reset() {
 		for(int i = 0; i < mySquares.length; i++) {
 			for(int j = 0; j < mySquares[i].length; j++) {
