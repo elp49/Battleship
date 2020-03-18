@@ -48,6 +48,15 @@ public class MenuBar extends JMenuBar {
 		setFont(ScreenSizer.SmallestReadableFont);
 	}};
 	
+	public JMenuItem Audio_Settings = new JMenuItem("Audio Settings") {{
+		setFont(ScreenSizer.SmallestReadableFont);
+		addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				GameplayFunctions.openAudioSettings();
+			}
+		});
+	}};
+	
 	public JMenu Settings_Menu = new JMenu("Settings") {{
 		setMnemonic(KeyEvent.VK_S);
 		add(new JMenu("Language") {{
@@ -56,6 +65,7 @@ public class MenuBar extends JMenuBar {
 			}});
 			setFont(ScreenSizer.SmallestReadableFont);
 		}});
+		add(Audio_Settings);
 		setFont(ScreenSizer.SmallestReadableFont);
 	}};
 	

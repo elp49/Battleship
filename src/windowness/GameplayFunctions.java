@@ -9,6 +9,8 @@ import controllers.MoveShipButtonController;
 public class GameplayFunctions {
 	
 	public static int numShipsPlaced = 0;
+	
+	private static Frame heldAudioWindow;
 
 	public static void NewGame() {
 		ShowWindow.beginBattle();
@@ -50,6 +52,14 @@ public class GameplayFunctions {
 		if(numShipsPlaced == ShowWindow.theBattleScreen.myHBP.myHBD.length) {
 			ShowWindow.theBattleScreen.myReady.setActive(true);
 		}
+	}
+	
+	public static void openAudioSettings() {
+		heldAudioWindow = new AudioWindow();
+	}
+	
+	public static void closeAudioSettings() {
+		heldAudioWindow.dispose();
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.awt.event.ComponentEvent;
 
 import code.BattleSession;
 import code.GameOptions;
+import code.Settings;
 
 public class ShowWindow {
 	public static BattleScreen theBattleScreen = new BattleScreen();
