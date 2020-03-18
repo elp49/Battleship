@@ -15,7 +15,7 @@ public class ShowWindow {
 	
 	public static BattleSession curBattle;
 	
-	//public static Settings mySettings = Settings.loadSettings();
+	public static Settings mySettings = Settings.loadSettings();
 	
 	public static void main(String[] args) {
 		showWindow();
