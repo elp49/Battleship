@@ -1,12 +1,8 @@
 package windowness;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.*;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 public class MoveShipButtons extends JPanel{
 	
@@ -43,7 +39,19 @@ public class MoveShipButtons extends JPanel{
 	}};
 	
 	public JButton Rotate = new JButton() {{
-		add(ImageAdd.getImage("Images/Rotate_Icon.png"));
+		//add(ImageAdd.getImage("Images/Rotate_Icon.png"));
+		ImageIcon icon = new ImageIcon("Images/rotate.png");
+		JLabel label = new JLabel(icon);
+		int h = icon.getIconHeight() / 16;
+		int w = icon.getIconWidth() / 16;
+		Image scaled = icon.getImage().getScaledInstance(h, w, Image.SCALE_SMOOTH);
+		ImageIcon scaledIcon = new ImageIcon(scaled);
+		JLabel scaledLabel = new JLabel(scaledIcon);
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+
+		panel.add(scaledLabel);
+		add(panel);
 	}};
 	
 	public MoveShipButtons() {
