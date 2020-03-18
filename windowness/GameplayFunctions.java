@@ -43,6 +43,7 @@ public class GameplayFunctions {
 		ShowWindow.theBattleScreen.myMoveShipButtons.setActive(false);
 		MoveShipButtonController.isPlacingShips = false;
 		numShipsPlaced = 0;
+		ShowWindow.curBattle.determineTurnOrder();
 	}
 	
 	public static void CheckReady() {

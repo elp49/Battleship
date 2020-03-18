@@ -55,7 +55,7 @@ public class MoveShipButtonController{
 		//Place the ship on the board in the new row
 		for(int i = 0; i < spacesFilled.length; i++) {
 			ShowWindow.curBattle.getPlayerBoard().getSquare(spacesFilled[i][0], spacesFilled[i][1]).setShip(prevShip);
-			ShowWindow.theBattleScreen.playerBG.mySquares[spacesFilled[i][0]][spacesFilled[i][1]].DisplayShip(prevShip.getName(), i+1);
+			ShowWindow.theBattleScreen.playerBG.mySquares[spacesFilled[i][0]][spacesFilled[i][1]].DisplayShip(prevShip.getName(), i+1,shipIsVertical);
 		}
 	}
 	
@@ -86,7 +86,7 @@ public class MoveShipButtonController{
 		//Place the ship on the board in the new row
 		for(int i = 0; i < spacesFilled.length; i++) {
 			ShowWindow.curBattle.getPlayerBoard().getSquare(spacesFilled[i][0], spacesFilled[i][1]).setShip(prevShip);
-			ShowWindow.theBattleScreen.playerBG.mySquares[spacesFilled[i][0]][spacesFilled[i][1]].DisplayShip(prevShip.getName(), i+1);
+			ShowWindow.theBattleScreen.playerBG.mySquares[spacesFilled[i][0]][spacesFilled[i][1]].DisplayShip(prevShip.getName(), i+1,shipIsVertical);
 		}
 	}
 	
@@ -120,7 +120,7 @@ public class MoveShipButtonController{
 		//Place the ship on the board in the new row
 		for(int i = 0; i < spacesFilled.length; i++) {
 			ShowWindow.curBattle.getPlayerBoard().getSquare(spacesFilled[i][0], spacesFilled[i][1]).setShip(prevShip);
-			ShowWindow.theBattleScreen.playerBG.mySquares[spacesFilled[i][0]][spacesFilled[i][1]].DisplayShip(prevShip.getName(), i+1);
+			ShowWindow.theBattleScreen.playerBG.mySquares[spacesFilled[i][0]][spacesFilled[i][1]].DisplayShip(prevShip.getName(), i+1,shipIsVertical);
 		}
 	}
 	
@@ -151,7 +151,7 @@ public class MoveShipButtonController{
 		//Place the ship on the board in the new row
 		for(int i = 0; i < spacesFilled.length; i++) {
 			ShowWindow.curBattle.getPlayerBoard().getSquare(spacesFilled[i][0], spacesFilled[i][1]).setShip(prevShip);
-			ShowWindow.theBattleScreen.playerBG.mySquares[spacesFilled[i][0]][spacesFilled[i][1]].DisplayShip(prevShip.getName(), i+1);
+			ShowWindow.theBattleScreen.playerBG.mySquares[spacesFilled[i][0]][spacesFilled[i][1]].DisplayShip(prevShip.getName(), i+1,shipIsVertical);
 		}
 	}
 	
@@ -220,12 +220,14 @@ public class MoveShipButtonController{
 			}
 		}
 		
+		
+		shipIsVertical = !shipIsVertical;
+		
 		//Place the ship on the board
 		for(int i = 0; i < spacesFilled.length; i++) {
 			ShowWindow.curBattle.getPlayerBoard().getSquare(spacesFilled[i][0], spacesFilled[i][1]).setShip(prevShip);
-			ShowWindow.theBattleScreen.playerBG.mySquares[spacesFilled[i][0]][spacesFilled[i][1]].DisplayShip(prevShip.getName(), i+1);
+			ShowWindow.theBattleScreen.playerBG.mySquares[spacesFilled[i][0]][spacesFilled[i][1]].DisplayShip(prevShip.getName(), i+1,shipIsVertical);
 		}
-		shipIsVertical = !shipIsVertical;
 	}
 	
 	private static int[] rotateAroundPivot(int[] myArr,int index,int pivot) {

@@ -92,6 +92,18 @@ public class GuessButton extends JPanel {
 		repaint();
 	}
 	
+	public void DisplayShip(String ship, int section, boolean isVertical) {
+		String imgName = "Images/" + ship + "_Top_sect" + section;
+		if(isVertical) {
+			imgName+="_vert";
+		}
+		imgName += ".png";
+		myImageNames.add(imgName);
+		add(ImageAdd.getImage(imgName,getBounds().width,getBounds().height));
+		validate();
+		repaint();
+	}
+	
 	public void RemoveShip() {
 		myImageNames.remove(0);
 		removeAll();
