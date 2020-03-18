@@ -9,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.border.BevelBorder;
 
 import windowness.BattleGrid;
+import windowness.GameplayFunctions;
 import windowness.GuessButton;
 import windowness.ShowWindow;
 
@@ -80,10 +81,25 @@ public class BattleGridController {
 				}
 				
 				if(toCheck.getSquare(myRow, myCol).hasShip()) {
+					toCheck.getSquare(myRow, myCol).getShip().hit();
 					myBattleGrid.mySquares[myRow][myCol].MarkHit();
+					ShowWindow.theBattleScreen.log("HIT",Color.RED);
+					if(toCheck.getSquare(myRow, myCol).getShip().isSunk()) {
+						ShowWindow.theBattleScreen.log("Sank Enemy " + toCheck.getSquare(myRow, myCol).getShip().getName() + "!",Color.YELLOW);
+						int sank = 0;
+						for(sank = 0; sank < toCheck.getShips().length; sank++) {
+							if(!toCheck.getShips()[sank].isSunk()) {
+								break;
+							}
+						}
+						if(sank == toCheck.getShips().length) {
+							GameplayFunctions.doWin();
+						}
+					}
 				}
 				else {
 					myBattleGrid.mySquares[myRow][myCol].MarkMiss();
+					ShowWindow.theBattleScreen.log("Miss");
 				}
 				
 				//ShowWindow.curBattle.fire(getColLetter(myCol), myRow);

@@ -1,5 +1,6 @@
 package windowness;
 
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -98,6 +99,16 @@ public class GameplayFunctions {
 	public static void closeHelpWindow() {
 		heldHelpWindow.dispose();
 		heldHelpWindow = null;
+	}
+	
+	public static void doWin() {
+		//Stop turnToggling
+		ShowWindow.theBattleScreen.log("YOU WIN!",Color.YELLOW);
+	}
+	
+	public static void doLose() {
+		//Stop turnToggling
+		ShowWindow.theBattleScreen.log("YOU LOSE!",Color.RED);
 	}
 	
 }
