@@ -5,13 +5,17 @@ import java.awt.event.ComponentEvent;
 
 import code.BattleSession;
 import code.GameOptions;
+import code.Settings;
 
 public class ShowWindow {
 	public static BattleScreen theBattleScreen = new BattleScreen();
 	public static MenuScreen theMenuScreen = new MenuScreen();
 	public static MainWindow theMainWindow = new MainWindow();
+	//public static AudioWindow tempy = new AudioWindow();
 	
 	public static BattleSession curBattle;
+	
+	//public static Settings mySettings = Settings.loadSettings();
 	
 	public static void main(String[] args) {
 		showWindow();
