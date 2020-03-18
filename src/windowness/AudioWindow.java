@@ -18,7 +18,7 @@ import javax.swing.JSlider;
 
 public class AudioWindow extends JFrame {
 	
-	private JSlider myVolume = new JSlider(0,10);
+	private JSlider myVolume = new JSlider(0,100);
 	
 	private JPanel myVolumePanel = new JPanel() {{
 		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
@@ -40,6 +40,7 @@ public class AudioWindow extends JFrame {
 		setFont(ScreenSizer.SmallestReadableFont);
 		addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
+				setSettings();
 				GameplayFunctions.closeAudioSettings();
 			}
 		});
@@ -71,6 +72,23 @@ public class AudioWindow extends JFrame {
 		add(CancelButton);
 	}};
 	
+	private void setSettings() {
+		ShowWindow.mySettings.setVolumeLevel(myVolume.getValue());
+		if(myIncludeMusic.isSelected()) {
+			ShowWindow.mySettings.turnMusicOn();
+		}
+		else {
+			ShowWindow.mySettings.turnMusicOff();
+		}
+		if(myIncludeSFX.isSelected()) {
+			ShowWindow.mySettings.turnSoundEffectsOn();
+		}
+		else {
+			ShowWindow.mySettings.turnSoundEffectsOff();
+		}
+		ShowWindow.mySettings.saveSettings();
+	}
+	
 	public AudioWindow(){
 		Container contentPane = getContentPane();
 		setLayout(new BoxLayout(contentPane,BoxLayout.PAGE_AXIS));
@@ -80,6 +98,9 @@ public class AudioWindow extends JFrame {
 		contentPane.add(myCheckBoxes);
 		myCheckBoxes.setPreferredSize(new Dimension(contentPane.getBounds().width, contentPane.getBounds().height/3));
 		contentPane.add(myButtons);
+		myVolume.setValue(ShowWindow.mySettings.getVolumeLevel());
+		myIncludeMusic.setSelected(ShowWindow.mySettings.isMusicOn());
+		myIncludeSFX.setSelected(ShowWindow.mySettings.isSoundEffectsOn());
 		setVisible(true);
 	}
 	

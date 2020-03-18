@@ -70,8 +70,10 @@ public class MoveShipButtons extends JPanel{
 		MoveLeft.setSize(new Dimension((int) (this.getBounds().width * 0.33),(int) (this.getBounds().height * 0.33)));
 		MoveRight.setSize(new Dimension((int) (this.getBounds().width * 0.33),(int) (this.getBounds().height * 0.33)));
 		Rotate.setSize(new Dimension((int) (this.getBounds().width * 0.33),(int) (this.getBounds().height * 0.33)));
-		//validate();
-		//repaint();
+		validate();
+		repaint();
+		Rotate.removeAll();
+		Rotate.add(ImageAdd.getImage("Images/rotate.png",Rotate.getSize().height,Rotate.getSize().height));
 	}
 	
 	public void setActive(boolean a) {

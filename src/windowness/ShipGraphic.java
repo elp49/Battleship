@@ -1,8 +1,6 @@
 package windowness;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.nio.file.FileSystem;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -16,8 +14,7 @@ public class ShipGraphic extends JPanel{
 	public ShipGraphic(Ship ship, BattleGrid bg, int row, int col) {
 		myShip = ship;
 		
-		add(ImageAdd.getImage("Images" + System.getProperty("file.separator") +
-				myShip.getName() + "_Top.png"));
+		add(ImageAdd.getImage("Images" + System.getProperty("file.separator") + myShip.getName() + "_Top.png"));
 		
 		//bg.addShip(this,row,col);
 		

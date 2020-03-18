@@ -7,7 +7,7 @@ import javax.swing.*;
 
 public class MainMenu extends JPanel{
 	
-	JPanel myImage = ImageAdd.getImage("mainMenuGraphic.png");
+	JPanel myImage = ImageAdd.getImage("Images" + System.getProperty("file.separator") + "mainMenuGraphic.png");
 	
 	JPanel myMenuOpts = new JPanel() {{
 		add(new JButton("SinglePlayer") {{

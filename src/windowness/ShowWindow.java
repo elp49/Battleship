@@ -12,6 +12,7 @@ public class ShowWindow {
 	public static MenuScreen theMenuScreen = new MenuScreen();
 	public static MainWindow theMainWindow = new MainWindow();
 	public static BattleSession curBattle;
+	public static Settings mySettings = Settings.loadSettings();
 	
 	public static void main(String[] args) {
 		showWindow();
