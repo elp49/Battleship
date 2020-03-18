@@ -70,6 +70,7 @@ public class AudioWindow extends JFrame {
 		add(Box.createHorizontalGlue());
 		add(ConfirmButton);
 		add(CancelButton);
+		add(Box.createRigidArea(new Dimension(8,1)));
 	}};
 	
 	private void setSettings() {
@@ -90,6 +91,8 @@ public class AudioWindow extends JFrame {
 	}
 	
 	public AudioWindow(){
+		setTitle("Audio Settings");
+		
 		Container contentPane = getContentPane();
 		setLayout(new BoxLayout(contentPane,BoxLayout.PAGE_AXIS));
 		setBounds(0,0,(int) (ScreenSizer.getScreenWidth()*0.5),(int) (ScreenSizer.getScreenHeight()*0.5));

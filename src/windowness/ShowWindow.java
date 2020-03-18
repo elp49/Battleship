@@ -11,7 +11,10 @@ public class ShowWindow {
 	public static BattleScreen theBattleScreen = new BattleScreen();
 	public static MenuScreen theMenuScreen = new MenuScreen();
 	public static MainWindow theMainWindow = new MainWindow();
+	//public static AudioWindow tempy = new AudioWindow();
+	
 	public static BattleSession curBattle;
+	
 	public static Settings mySettings = Settings.loadSettings();
 	
 	public static void main(String[] args) {
@@ -35,7 +38,7 @@ public class ShowWindow {
 	}
 	
 	public static void beginBattle() {
-		curBattle = new BattleSession("Player1","Computer",GameOptions.loadGameOptions());
+		curBattle = new BattleSession("blah","blah",GameOptions.loadGameOptions());
 		theMainWindow.setScreen(theBattleScreen);
 		theBattleScreen.reload();
 		theBattleScreen.setSizes();

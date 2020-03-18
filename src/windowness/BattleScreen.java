@@ -1,8 +1,8 @@
 package windowness;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import javax.swing.border.EmptyBorder;
 
 import code.Ship;
 import controllers.BattleGridController;
@@ -103,6 +103,13 @@ public class BattleScreen extends ScreenPanel {
 		BattleGrids.repaint();
 		
 		//This is a place holder and will be replaced with proper code later
+		/*myHBP.resetHBP(new Ship[] {
+				new Ship() {{setName("Carrier");setSize(5);}},
+				new Ship() {{setName("Battleship");setSize(4);}},
+				new Ship() {{setName("Destroyer");setSize(3);}},
+				new Ship() {{setName("Submarine");setSize(3);}},
+				new Ship() {{setName("Patrol Boat");setSize(2);}}
+		});*/
 		myHBP.resetHBP(ShowWindow.curBattle.getPlayerBoard().getShips());
 		
 		myHBPC.setHBPControl(myHBP);

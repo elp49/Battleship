@@ -7,7 +7,7 @@ import javax.swing.*;
 
 public class MenuScreen extends ScreenPanel{
 	
-	JPanel myImage = ImageAdd.getImage("Images" + System.getProperty("file.separator") + "mainMenuGraphic.png");
+	JPanel myImage = ImageAdd.getImage("Images/mainMenuGraphic.png");
 	
 	JPanel myMenuOpts = new JPanel() {{
 		add(new JButton("SinglePlayer") {{

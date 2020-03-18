@@ -1,6 +1,8 @@
 package windowness;
 
 import java.awt.Frame;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
@@ -11,6 +13,7 @@ public class GameplayFunctions {
 	public static int numShipsPlaced = 0;
 	
 	private static Frame heldAudioWindow;
+	private static Frame heldHelpWindow;
 
 	public static void NewGame() {
 		ShowWindow.beginBattle();
@@ -42,7 +45,7 @@ public class GameplayFunctions {
 	public static void ReadyToPlay() {
 		// Randomly place opponent's ships on their board.
 		ShowWindow.curBattle.getOpponentBoard().placeAllShipsRandomly();
-
+				
 		ShowWindow.theBattleScreen.myReady.setActive(false);
 		ShowWindow.theBattleScreen.opponentBG.setActive(true);
 		ShowWindow.theBattleScreen.myMoveShipButtons.setActive(false);
@@ -58,11 +61,43 @@ public class GameplayFunctions {
 	}
 	
 	public static void openAudioSettings() {
-		heldAudioWindow = new AudioWindow();
+		if(heldAudioWindow == null) {
+			heldAudioWindow = new AudioWindow();
+			heldAudioWindow.addWindowListener(new WindowAdapter() {
+				  @Override
+				  public void windowClosing(WindowEvent e) {
+					  heldAudioWindow = null;
+				  }
+				});
+		}
+		else {
+			heldAudioWindow.requestFocus();
+		}
 	}
 	
 	public static void closeAudioSettings() {
 		heldAudioWindow.dispose();
+		heldAudioWindow = null;
+	}
+	
+	public static void openHelpWindow() {
+		if(heldHelpWindow == null) {
+			heldHelpWindow = new HelpWindow();
+			heldHelpWindow.addWindowListener(new WindowAdapter() {
+				  @Override
+				  public void windowClosing(WindowEvent e) {
+					  heldHelpWindow = null;
+				  }
+				});
+		}
+		else {
+			heldHelpWindow.requestFocus();
+		}
+	}
+	
+	public static void closeHelpWindow() {
+		heldHelpWindow.dispose();
+		heldHelpWindow = null;
 	}
 	
 }

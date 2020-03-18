@@ -48,7 +48,7 @@ public class MenuBar extends JMenuBar {
 		setFont(ScreenSizer.SmallestReadableFont);
 	}};
 	
-	public JMenuItem Audio_Settings = new JMenuItem("Audio Settings") {{
+	private JMenuItem Audio_Settings = new JMenuItem("Audio Settings") {{
 		setFont(ScreenSizer.SmallestReadableFont);
 		addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
@@ -69,11 +69,21 @@ public class MenuBar extends JMenuBar {
 		setFont(ScreenSizer.SmallestReadableFont);
 	}};
 	
+	private JMenuItem HelpWind = new JMenuItem("How to play") {{
+		setFont(ScreenSizer.SmallestReadableFont);
+		addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				GameplayFunctions.openHelpWindow();
+			}
+		});
+	}};
+	
 	public JMenu Help_Menu = new JMenu("Help") {{
 		setMnemonic(KeyEvent.VK_H);
-		add(new JMenuItem("How to play") {{
+		/*add(new JMenuItem("How to play") {{
 			setFont(ScreenSizer.SmallestReadableFont);
-		}});
+		}});*/
+		add(HelpWind);
 		setFont(ScreenSizer.SmallestReadableFont);
 	}};
 	
