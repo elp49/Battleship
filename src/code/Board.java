@@ -80,7 +80,7 @@ public class Board {
         Random rand = new Random();
         Square[] squares;
         Square square;
-        int row, col, end;
+        int row, col, end, i;
         boolean isHorizontal;
         do {
             squares = null;
@@ -91,17 +91,24 @@ public class Board {
             if (square.hasShip()) {
                 continue;
             }
-            // Get the index of the last column this ship would fill to the right.
-            end = col + size - 1;
-            if (end > this.squares[0].length) {
-                // If endCol is out of bounds, then fill to the left.
-                end = col;
-                col = col - size + 1;
-            }
             isHorizontal = rand.nextBoolean();
             if (isHorizontal) {
+                // Get the index of the last column this ship would fill to the right.
+                end = col + size - 1;
+                if (end > this.squares[0].length) {
+                    // If end is out of bounds, then fill to the left.
+                    end = col;
+                    col = col - size + 1;
+                }
                 squares = getHorizontalSquares(row, col, end);
             } else {
+                // Get the index of the last row this ship would fill to the bottom.
+                end = row + size - 1;
+                if (end > this.squares[0].length) {
+                    // If end is out of bounds, then fill to the top.
+                    end = row;
+                    row = row - size + 1;
+                }
                 squares = getVerticalSquares(col, row, end);
             }
         } while (!squaresAreEmpty(squares));
