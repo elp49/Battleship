@@ -25,6 +25,69 @@ public class ImageAdd {
 		return myPicHolder;
 	}
 	
+	public static JPanel getImage(String pic, int w, int h) {
+		JPanel myPicHolder = new JPanel();
+		try {
+			BufferedImage myPic = ImageIO.read(new File(pic));
+			Image hold = myPic.getScaledInstance(w, h, Image.SCALE_SMOOTH);
+			myPicHolder.add(new JLabel(new ImageIcon(hold)));
+		}
+		catch(IOException e) {
+			System.out.println("Attempted to make image from nonexistent file \"" + pic + "\"! Placeholder loaded instead.");
+			myPicHolder = new PlaceHolderGraphic();
+		}
+		return myPicHolder;
+	}
+	
+	public static JPanel getScaledImage(String pic, double scaling) {
+		JPanel myPicHolder = new JPanel();
+		try {
+			BufferedImage myPic = ImageIO.read(new File(pic));
+			Image hold = myPic.getScaledInstance((int) (myPic.getWidth()*scaling), (int) (myPic.getHeight()*scaling), Image.SCALE_SMOOTH);
+			myPicHolder.add(new JLabel(new ImageIcon(hold)));
+		}
+		catch(IOException e) {
+			System.out.println("Attempted to make image from nonexistent file \"" + pic + "\"! Placeholder loaded instead.");
+			myPicHolder = new PlaceHolderGraphic();
+		}
+		return myPicHolder;
+	}
+	
+	/*public static JPanel getImage(String pic, double angle) {
+		JPanel myPicHolder = new JPanel();
+		try {
+			BufferedImage myPic = ImageIO.read(new File(pic));
+			Graphics2D g = myPic.createGraphics();
+			g.translate((myPic.getHeight() - myPic.getWidth()) / 2, (myPic.getHeight() - myPic.getWidth()) / 2);
+		    g.rotate(Math.toRadians(angle), myPic.getHeight() / 2, myPic.getWidth() / 2);
+		    g.drawRenderedImage(myPic, null);
+			myPicHolder.add(new JLabel(new ImageIcon(myPic)));
+		}
+		catch(IOException e) {
+			System.out.println("Attempted to make image from nonexistent file \"" + pic + "\"! Placeholder loaded instead.");
+			myPicHolder = new PlaceHolderGraphic();
+		}
+		return myPicHolder;
+	}
+	
+	public static JPanel getImage(String pic, int w, int h, double angle) {
+		JPanel myPicHolder = new JPanel();
+		try {
+			BufferedImage myPic = ImageIO.read(new File(pic));
+			Graphics2D g = myPic.createGraphics();
+			g.translate((myPic.getHeight() - myPic.getWidth()) / 2, (myPic.getHeight() - myPic.getWidth()) / 2);
+		    g.rotate(Math.toRadians(angle), myPic.getHeight() / 2, myPic.getWidth() / 2);
+		    g.drawRenderedImage(myPic, null);
+		    Image hold = myPic.getScaledInstance(w, h, Image.SCALE_SMOOTH);
+			myPicHolder.add(new JLabel(new ImageIcon(hold)));
+		}
+		catch(IOException e) {
+			System.out.println("Attempted to make image from nonexistent file \"" + pic + "\"! Placeholder loaded instead.");
+			myPicHolder = new PlaceHolderGraphic();
+		}
+		return myPicHolder;
+	}*/
+	
 	/*public static JPanel getImage(String pic, int w, int h) {
 		JPanel myPicHolder = new JPanel();
 		try {

@@ -4,6 +4,8 @@ import java.awt.Frame;
 
 import javax.swing.JFrame;
 
+import controllers.MoveShipButtonController;
+
 public class GameplayFunctions {
 	
 	public static int numShipsPlaced = 0;
@@ -13,6 +15,11 @@ public class GameplayFunctions {
 		ShowWindow.theMainWindow.myMenuBar.setNewGameActive(true);
 		ShowWindow.theMainWindow.myMenuBar.setSurrenderActive(true);
 		ShowWindow.theMainWindow.myMenuBar.setExitActive(true);
+		ShowWindow.theBattleScreen.opponentBG.setActive(false);
+		ShowWindow.theBattleScreen.myMoveShipButtons.setActive(true);
+		MoveShipButtonController.isPlacingShips = true;
+		ShowWindow.theBattleScreen.myReady.setActive(false);
+		numShipsPlaced = 0;
 	}
 	
 	public static void Surrender() {
@@ -20,6 +27,7 @@ public class GameplayFunctions {
 		ShowWindow.theMainWindow.myMenuBar.setNewGameActive(true);
 		ShowWindow.theMainWindow.myMenuBar.setSurrenderActive(false);
 		ShowWindow.theMainWindow.myMenuBar.setExitActive(true);
+		MoveShipButtonController.isPlacingShips = false;
 	}
 	
 	public static void Exit() {
@@ -31,7 +39,11 @@ public class GameplayFunctions {
 	
 	public static void ReadyToPlay() {
 		ShowWindow.theBattleScreen.myReady.setActive(false);
+		ShowWindow.theBattleScreen.opponentBG.setActive(true);
+		ShowWindow.theBattleScreen.myMoveShipButtons.setActive(false);
+		MoveShipButtonController.isPlacingShips = false;
 		numShipsPlaced = 0;
+		ShowWindow.curBattle.determineTurnOrder();
 	}
 	
 	public static void CheckReady() {

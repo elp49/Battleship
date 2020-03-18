@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 public class BattleScreen_GameButtons extends JPanel{
 	
 	private JPanel SurrenderButton = new JPanel(){{
-		add(ImageAdd.getImage("Images/Surrender_Button_Large.png"));
+		add(ImageAdd.getImage("Images/Surrender_Button.png"));
 		addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e){
 				GameplayFunctions.Surrender();
@@ -78,19 +78,19 @@ public class BattleScreen_GameButtons extends JPanel{
 	}
 	
 	public void resizeButtons() {
-		//removeAll();
-		/*setPreferredSize(new Dimension((int) (super.getParent().getHeight()*4),super.getParent().getHeight()));
+		removeAll();
+		setPreferredSize(new Dimension((int) (super.getParent().getHeight()*4),super.getParent().getHeight()));
 		SurrenderButton.removeAll();
-		SurrenderButton.add(ImageAdd.getImage("Images/Surrender_Button.png",getPreferredSize().height,getPreferredSize().height));
+		SurrenderButton.add(ImageAdd.getImage("Images/Surrender_Button.png",getBounds().height/2,getBounds().height/2));
 		NewGameButton.removeAll();
-		NewGameButton.add(ImageAdd.getImage("Images/NewGame_Button.png",getPreferredSize().height,getPreferredSize().height));
+		NewGameButton.add(ImageAdd.getImage("Images/NewGame_Button.png",getBounds().height/2,getBounds().height/2));
 		HelpButton.removeAll();
-		HelpButton.add(ImageAdd.getImage("Images/Help_Button.png",getPreferredSize().height,getPreferredSize().height));
+		HelpButton.add(ImageAdd.getImage("Images/Help_Button.png",getBounds().height/2,getBounds().height/2));
 		
 		add(SurrenderButton);
 		add(NewGameButton);
 		add(HelpButton);
-		*/
+		
 		validate();
 		repaint();
 	}

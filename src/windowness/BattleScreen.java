@@ -6,6 +6,7 @@ import java.awt.*;
 import code.Ship;
 import controllers.BattleGridController;
 import controllers.HealthBarPanelController;
+import controllers.MoveShipButtonController;
 
 public class BattleScreen extends ScreenPanel {
 	
@@ -14,7 +15,7 @@ public class BattleScreen extends ScreenPanel {
 	
 	HealthBarPanelController myHBPC = new HealthBarPanelController();
 	
-	JPanel MSGBanner = new JPanel() {{
+	/*JPanel MSGBanner = new JPanel() {{
 		setLayout(new FlowLayout());
 		setBackground(Color.RED);
 		setPreferredSize(ScreenSizer.getRectangleBasedOnScreenSize(1, 0.03));
@@ -22,7 +23,8 @@ public class BattleScreen extends ScreenPanel {
 			setForeground(Color.WHITE);
 			setFont(new Font("Arial",Font.PLAIN,ScreenSizer.getScreenWidth()/90));
 		}});
-	}};
+	}};*/
+	MessageBanner MSGBanner = new MessageBanner();
 	
 	JPanel BattleGrids = new JPanel() {{
 		setLayout(new GridLayout(1,2));
@@ -49,6 +51,11 @@ public class BattleScreen extends ScreenPanel {
 	BattleScreen_GameButtons myBSGB = new BattleScreen_GameButtons();
 	ReadyButton myReady = new ReadyButton();
 	
+	public BattleGrid playerBG = new BattleGrid();
+	public BattleGrid opponentBG = new BattleGrid();
+	
+	MoveShipButtonController myMSBC = new MoveShipButtonController();
+	
 	public BattleScreen() {
 		setLayout(new BorderLayout());
 		add(MSGBanner, BorderLayout.PAGE_START);
@@ -71,7 +78,6 @@ public class BattleScreen extends ScreenPanel {
 		BattleGrids.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width * 0.8),super.getParent().getBounds().height));
 		MoveyButtons.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width),(int) (super.getParent().getBounds().height*0.2)));
 		myMoveShipButtons.resizeButtons();
-		myBSGB.resizeButtons();
 		//myMoveShipButtons.setPreferredSize(new Dimension((int) (myMoveShipButtons.getParent().getBounds().width * 0.4),(int) (myMoveShipButtons.getParent().getBounds().height)));
 		//myBSGB.setPreferredSize(new Dimension((int) (myBSGB.getParent().getBounds().width * 0.4),(int) (myBSGB.getParent().getBounds().height)));
 		GameLog_HealthBars.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width * 0.2),super.getParent().getBounds().height));
@@ -79,15 +85,18 @@ public class BattleScreen extends ScreenPanel {
 		myGameLog.resizeLog();
 		validate();
 		repaint();
+		playerBG.resizeImages();
+		opponentBG.resizeImages();
+		myBSGB.resizeButtons();
 	}
 	
 	public void reload() {
 		BattleGrids.removeAll();
-		BattleGrid holdP = (BattleGrid) BattleGrids.add(new BattleGrid() {{setPlayer(true);}});
+		playerBG = (BattleGrid) BattleGrids.add(new BattleGrid() {{setPlayer(true);}});
 		//new ShipGraphic(new Ship() {{setName("Carrier");setSize(5);}},holdP,0,0);
-		playerBGC.setBattleGridControl(holdP);
-		BattleGrid holdO = (BattleGrid) BattleGrids.add(new BattleGrid());
-		opponentBGC.setBattleGridControl(holdO);
+		playerBGC.setBattleGridControl(playerBG);
+		opponentBG = (BattleGrid) BattleGrids.add(new BattleGrid());
+		opponentBGC.setBattleGridControl(opponentBG);
 		BattleGrids.validate();
 		BattleGrids.repaint();
 		
@@ -102,19 +111,29 @@ public class BattleScreen extends ScreenPanel {
 		
 		myHBPC.setHBPControl(myHBP);
 		
+		myMSBC.setMSBControl(myMoveShipButtons);
+		
 		myGameLog.resetLog();
 		myGameLog.resizeLog();
-		myGameLog.log("Starting New Game",Color.CYAN);
+		log("Starting New Game",Color.CYAN);
 		
 		myMoveShipButtons.resizeButtons();
 		myBSGB.resizeButtons();
 	}
 	
+	public void message(String msg) {
+		MSGBanner.setText(msg);
+	}
+	
 	public void log(String toLog) {
+		message(toLog);
 		myGameLog.log(toLog);
+		validate();
+		repaint();
 	}
 	
 	public void log(String toLog, Color txtColor) {
+		message(toLog);
 		myGameLog.log(toLog, txtColor);
 		validate();
 		repaint();

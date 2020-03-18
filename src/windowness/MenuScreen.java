@@ -14,7 +14,7 @@ public class MenuScreen extends ScreenPanel{
 			setFont(ScreenSizer.SmallestReadableFont);
 			addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent ev) {
-					ShowWindow.beginBattle();
+					GameplayFunctions.NewGame();
 				}
 			});
 		}});
@@ -22,7 +22,7 @@ public class MenuScreen extends ScreenPanel{
 			setFont(ScreenSizer.SmallestReadableFont);
 			addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent ev) {
-					ShowWindow.beginBattle();
+					GameplayFunctions.NewGame();
 				}
 			});
 		}});
@@ -30,10 +30,7 @@ public class MenuScreen extends ScreenPanel{
 			setFont(ScreenSizer.SmallestReadableFont);
 			addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent ev) {
-					Frame[] windows = Frame.getFrames();
-					for(int i = windows.length-1; i >= 0; i--) {
-						windows[i].dispose();
-					}
+					GameplayFunctions.Exit();
 				}
 			});
 		}});

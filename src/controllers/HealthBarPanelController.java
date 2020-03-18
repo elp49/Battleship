@@ -16,25 +16,68 @@ public class HealthBarPanelController {
 	private HealthBarPanel myHBP;
 	
 	private class addButtonListener implements MouseListener{
-		boolean isPlacingShips = true;
 		boolean shipPlaced = false;
 		Ship myShip;
 		String ShipName;
+		int[][] spaces;
 		
 		public addButtonListener(Ship ship) {
 			ShipName = ship.getName();
 			myShip = ship;
 		}
 		
-		public void battleStarted() {
-			isPlacingShips = false;
+		public void placeShipStartingAt(int row, int col, Board on) {
+			int curCol = col;
+			spaces = new int[myShip.getSize()][2];
+			for(;curCol < col + myShip.getSize();curCol++) {
+				on.getSquare(row, curCol).setShip(myShip);
+				ShowWindow.theBattleScreen.playerBG.mySquares[row][curCol].DisplayShip(myShip.getName(), curCol-col+1);
+				spaces[curCol-col] = new int[]{row,curCol};
+			}
+			shipPlaced = true;
 		}
 		
 		public void mouseClicked(MouseEvent e){
 			if(shipPlaced) {
 				return;
 			}
-			char[] myCols = new char[myShip.getSize()];
+			Board playerBoard = ShowWindow.curBattle.getPlayerBoard();
+			//int[][] mySquares = new int[myShip.getSize()][2];
+			spaces = new int[myShip.getSize()][2];
+			for(int i = 0; i < playerBoard.getSquares().length && !shipPlaced; i++) {
+				for(int j = 0; j < playerBoard.getSquares()[i].length && j + myShip.getSize() < playerBoard.getSquares()[i].length && !shipPlaced; j++) {
+					for(int k = 0; k < myShip.getSize(); k++) {
+						if(playerBoard.getSquare(i, j).hasShip()) {
+							shipPlaced = false;
+							break;
+						}
+						spaces[k] = new int[] {i,j};
+						shipPlaced = true;
+						j++;
+					}
+				}
+			}
+			for(int k = 0; k < spaces.length; k++) {
+				playerBoard.getSquare(spaces[k][0], spaces[k][1]).setShip(myShip);
+				ShowWindow.theBattleScreen.playerBG.mySquares[spaces[k][0]][spaces[k][1]].DisplayShip(myShip.getName(), k+1);
+			}
+			/*int squaresInARow = 0;
+			for(int i = 0; i < playerBoard.getSquares().length && !shipPlaced; i++) {
+				for(int j = 0; j < playerBoard.getSquares()[i].length && j + myShip.getSize() <= playerBoard.getSquares()[i].length && !shipPlaced; j++) {
+					for(int k = j; k < myShip.getSize(); k++) {
+						if(playerBoard.getSquare(i, j).hasShip()) {
+							break;
+						}
+						else {
+							squaresInARow++;
+						}
+						if(squaresInARow == myShip.getSize()) {
+							placeShipStartingAt(i,j,playerBoard);
+						}
+					}
+				}
+			}*/
+			/*char[] myCols = new char[myShip.getSize()];
 			char holdCol = 'A';
 			for(int i = 0; i < myCols.length;i++) {
 				myCols[i] = holdCol;
@@ -63,7 +106,8 @@ public class HealthBarPanelController {
 					}
 					shipPlaced = false;
 				}
-			}
+			}*/
+			MoveShipButtonController.setPrevShip(myShip, spaces);
 			ShowWindow.theBattleScreen.log("Placed " + ShipName);
 			GameplayFunctions.numShipsPlaced++;
 			GameplayFunctions.CheckReady();

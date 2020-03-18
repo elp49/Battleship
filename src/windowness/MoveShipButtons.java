@@ -10,7 +10,7 @@ import javax.swing.SwingConstants;
 
 public class MoveShipButtons extends JPanel{
 	
-	private JButton MoveUp = new JButton() {{
+	public JButton MoveUp = new JButton() {{
 		add(new JLabel("^") {{
 			setFont(ScreenSizer.SmallestReadableFont);setAlignmentX(JLabel.CENTER_ALIGNMENT);
 			setAlignmentX(JLabel.CENTER_ALIGNMENT);
@@ -18,7 +18,7 @@ public class MoveShipButtons extends JPanel{
 		}});
 	}};
 	
-	private JButton MoveDown = new JButton() {{
+	public JButton MoveDown = new JButton() {{
 		add(new JLabel("v") {{
 			setFont(ScreenSizer.SmallestReadableFont);setAlignmentX(JLabel.CENTER_ALIGNMENT);
 			setAlignmentX(JLabel.CENTER_ALIGNMENT);
@@ -26,7 +26,7 @@ public class MoveShipButtons extends JPanel{
 		}});
 	}};
 	
-	private JButton MoveLeft = new JButton() {{
+	public JButton MoveLeft = new JButton() {{
 		add(new JLabel("<") {{
 			setFont(ScreenSizer.SmallestReadableFont);
 			setAlignmentX(JLabel.CENTER_ALIGNMENT);
@@ -34,7 +34,7 @@ public class MoveShipButtons extends JPanel{
 		}});
 	}};
 	
-	private JButton MoveRight = new JButton() {{
+	public JButton MoveRight = new JButton() {{
 		add(new JLabel(">") {{
 			setFont(ScreenSizer.SmallestReadableFont);
 			setAlignmentX(JLabel.CENTER_ALIGNMENT);
@@ -42,7 +42,7 @@ public class MoveShipButtons extends JPanel{
 		}});
 	}};
 	
-	private JButton Rotate = new JButton() {{
+	public JButton Rotate = new JButton() {{
 		add(ImageAdd.getImage("Images/Rotate_Icon.png"));
 	}};
 	
@@ -64,6 +64,14 @@ public class MoveShipButtons extends JPanel{
 		Rotate.setSize(new Dimension((int) (this.getBounds().width * 0.33),(int) (this.getBounds().height * 0.33)));
 		//validate();
 		//repaint();
+	}
+	
+	public void setActive(boolean a) {
+		MoveUp.setEnabled(a);
+		MoveDown.setEnabled(a);
+		MoveLeft.setEnabled(a);
+		MoveRight.setEnabled(a);
+		Rotate.setEnabled(a);
 	}
 	
 }
