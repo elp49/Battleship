@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 public class MessageBanner extends JPanel{
 	

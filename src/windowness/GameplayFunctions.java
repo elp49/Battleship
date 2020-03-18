@@ -40,6 +40,9 @@ public class GameplayFunctions {
 	}
 	
 	public static void ReadyToPlay() {
+		// Randomly place opponent's ships on their board.
+		ShowWindow.curBattle.getOpponentBoard().placeAllShipsRandomly();
+
 		ShowWindow.theBattleScreen.myReady.setActive(false);
 		ShowWindow.theBattleScreen.opponentBG.setActive(true);
 		ShowWindow.theBattleScreen.myMoveShipButtons.setActive(false);

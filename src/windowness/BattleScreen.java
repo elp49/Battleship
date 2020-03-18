@@ -1,6 +1,7 @@
 package windowness;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 import code.Ship;
@@ -70,6 +71,7 @@ public class BattleScreen extends ScreenPanel {
 		GameLog_HealthBars.add(myGameLog);
 		GameLog_HealthBars.add(myHBP);
 		add(GameLog_HealthBars,BorderLayout.LINE_END);
+		setBorder(new EmptyBorder(12, 12, 12, 12));
 		setVisible(true);
 	}
 	
@@ -101,13 +103,7 @@ public class BattleScreen extends ScreenPanel {
 		BattleGrids.repaint();
 		
 		//This is a place holder and will be replaced with proper code later
-		myHBP.resetHBP(new Ship[] {
-				new Ship() {{setName("Carrier");setSize(5);}},
-				new Ship() {{setName("Battleship");setSize(4);}},
-				new Ship() {{setName("Destroyer");setSize(3);}},
-				new Ship() {{setName("Submarine");setSize(3);}},
-				new Ship() {{setName("Patrol Boat");setSize(2);}}
-		});
+		myHBP.resetHBP(ShowWindow.curBattle.getPlayerBoard().getShips());
 		
 		myHBPC.setHBPControl(myHBP);
 		

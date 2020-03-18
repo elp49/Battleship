@@ -1,7 +1,6 @@
 package windowness;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
@@ -64,7 +63,20 @@ public class GuessButton extends JPanel {
 		if(!isPlayer && !isClicked) {
 			String imgName = "Images" + System.getProperty("file.separator") + "HitMarker.png";
 			myImageNames.add(imgName);
-			add(ImageAdd.getImage(imgName,getBounds().width,getBounds().height));
+			//add(ImageAdd.getImage(imgName,getBounds().width,getBounds().height));
+
+			ImageIcon icon = new ImageIcon(imgName);
+			JLabel label = new JLabel(icon);
+			int h = icon.getIconHeight() / 2;
+			int w = icon.getIconWidth() / 2;
+			Image scaled = icon.getImage().getScaledInstance(h, w, Image.SCALE_SMOOTH);
+			ImageIcon scaledIcon = new ImageIcon(scaled);
+			JLabel scaledLabel = new JLabel(scaledIcon);
+			JPanel panel = new JPanel();
+			panel.setLayout(new GridBagLayout());
+			panel.add(scaledLabel);
+			add(panel);
+
 			MarkClick();
 		}
 	}
@@ -73,7 +85,20 @@ public class GuessButton extends JPanel {
 		if(!isPlayer && !isClicked) {
 			String imgName = "Images" + System.getProperty("file.separator") + "MissMarker.png";
 			myImageNames.add(imgName);
-			add(ImageAdd.getImage(imgName,getBounds().width,getBounds().height));
+			//add(ImageAdd.getImage(imgName,getBounds().width,getBounds().height));
+
+			ImageIcon icon = new ImageIcon(imgName);
+			JLabel label = new JLabel(icon);
+			int h = icon.getIconHeight() / 2;
+			int w = icon.getIconWidth() / 2;
+			Image scaled = icon.getImage().getScaledInstance(h, w, Image.SCALE_SMOOTH);
+			ImageIcon scaledIcon = new ImageIcon(scaled);
+			JLabel scaledLabel = new JLabel(scaledIcon);
+			JPanel panel = new JPanel();
+			panel.setLayout(new GridBagLayout());
+			panel.add(scaledLabel);
+			add(panel);
+
 			MarkClick();
 		}
 	}

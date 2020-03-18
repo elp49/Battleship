@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 import code.Ship;
 import code.Board;
 
+import code.Square;
 import windowness.HealthBarPanel;
 import windowness.HealthBarData;
 import windowness.HealthUnitVisual;
@@ -42,11 +43,16 @@ public class HealthBarPanelController {
 				return;
 			}
 			Board playerBoard = ShowWindow.curBattle.getPlayerBoard();
+			int shipSize = myShip.getSize();
+			Square[][] squares = playerBoard.getSquares();
+			int columnLength = squares.length;
+			int rowLength;
 			//int[][] mySquares = new int[myShip.getSize()][2];
-			spaces = new int[myShip.getSize()][2];
-			for(int i = 0; i < playerBoard.getSquares().length && !shipPlaced; i++) {
-				for(int j = 0; j < playerBoard.getSquares()[i].length && j + myShip.getSize() < playerBoard.getSquares()[i].length && !shipPlaced; j++) {
-					for(int k = 0; k < myShip.getSize(); k++) {
+			spaces = new int[shipSize][2];
+			for(int i = 0; i < columnLength && !shipPlaced; i++) {
+				rowLength = squares[i].length;
+				for(int j = 0; j < rowLength && j + shipSize < rowLength && !shipPlaced; j++) {
+					for(int k = 0; k < shipSize; k++) {
 						if(playerBoard.getSquare(i, j).hasShip()) {
 							shipPlaced = false;
 							break;
@@ -58,8 +64,10 @@ public class HealthBarPanelController {
 				}
 			}
 			for(int k = 0; k < spaces.length; k++) {
-				playerBoard.getSquare(spaces[k][0], spaces[k][1]).setShip(myShip);
-				ShowWindow.theBattleScreen.playerBG.mySquares[spaces[k][0]][spaces[k][1]].DisplayShip(myShip.getName(), k+1);
+				int row = spaces[k][0];
+				int column = spaces[k][1];
+				playerBoard.getSquare(row, column).setShip(myShip);
+				ShowWindow.theBattleScreen.playerBG.mySquares[row][column].DisplayShip(myShip.getName(), k+1);
 			}
 			/*int squaresInARow = 0;
 			for(int i = 0; i < playerBoard.getSquares().length && !shipPlaced; i++) {

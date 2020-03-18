@@ -1,5 +1,7 @@
 package code;
 
+import java.util.Random;
+
 public class Board {
 
     Square[][] squares;
@@ -21,6 +23,11 @@ public class Board {
         this.ships = ships;
     }
 
+    public Board(Square[][] squares, Ship[] ships) {
+        this.squares = squares;
+        this.ships = ships;
+    }
+
     public Board() {
         squares = new Square[10][10];
         for (int i = 0; i <= 9; i++) {
@@ -28,10 +35,111 @@ public class Board {
                 squares[i][j] = new Square();
             }
         }
+        ships = new Ship[]{
+                new Ship("Carrier", 5),
+                new Ship("Battleship", 4),
+                new Ship("Destroyer", 3),
+                new Ship("Submarine", 3),
+                new Ship("Patrol Boat", 2)
+        };
     }
 
     public Square getSquare(int row, int column) {
         return squares[row][column];
+    }
+
+    public void placeAllShipsRandomly() {
+        // Clear all squares of possible ships.
+        clearAllSquares();
+        // Place all ships on board randomly.
+        for (Ship ship : this.ships) {
+            placeShipRandomly(ship);
+        }
+    }
+
+    public void clearAllSquares() {
+        int numRows = squares.length;
+        int numCols = squares[0].length;
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
+                squares[i][j].removeShip();
+            }
+        }
+    }
+
+    public void placeShipRandomly(Ship ship) {
+        assert ship != null;
+        int size = ship.getSize();
+        Square[] squares = getRandomEmptySquares(size);
+        for (Square square : squares) {
+            square.setShip(ship);
+        }
+    }
+
+    public Square[] getRandomEmptySquares(int size) {
+        Random rand = new Random();
+        Square[] squares;
+        Square square;
+        int row, col, end;
+        boolean isHorizontal;
+        do {
+            squares = null;
+            // Pick a random square.
+            row = rand.nextInt(this.squares.length);
+            col = rand.nextInt(this.squares[0].length);
+            square = getSquare(row, col);
+            if (square.hasShip()) {
+                continue;
+            }
+            // Get the index of the last column this ship would fill to the right.
+            end = col + size - 1;
+            if (end > this.squares[0].length) {
+                // If endCol is out of bounds, then fill to the left.
+                end = col;
+                col = col - size + 1;
+            }
+            isHorizontal = rand.nextBoolean();
+            if (isHorizontal) {
+                squares = getHorizontalSquares(row, col, end);
+            } else {
+                squares = getVerticalSquares(col, row, end);
+            }
+        } while (!squaresAreEmpty(squares));
+
+        return squares;
+    }
+
+    public Square[] getHorizontalSquares(int row, int startCol, int endCol) {
+        assert endCol > startCol;
+        int size = endCol - startCol + 1;
+        Square[] squares = new Square[size];
+        for (int i = 0; i + startCol <= endCol; i++) {
+            squares[i] = getSquare(row, i);
+        }
+        return squares;
+    }
+
+    public Square[] getVerticalSquares(int col, int startRow, int endRow) {
+        assert endRow > startRow;
+        int size = endRow - startRow + 1;
+        Square[] squares = new Square[size];
+        for (int i = 0; i + startRow <= endRow; i++) {
+            squares[i] = getSquare(i, col);
+        }
+        return squares;
+    }
+
+    public boolean squaresAreEmpty(Square[] squares) {
+        if (squares == null) {
+            return false;
+        }
+        for (Square square : squares) {
+            if (square.hasShip()) {
+                return false;
+            }
+        }
+        // Return true if none of the given squares contain a ship.
+        return true;
     }
 
     /*public void placeShipOnBoardVertically(Ship ship, int[] rows, char column) throws Exception {

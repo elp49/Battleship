@@ -38,4 +38,10 @@ public class Square {
         this.isHit = false;
     }
 
+    public Ship removeShip() {
+        Ship ship = this.ship;
+        this.ship = null;
+        return ship;
+    }
+
 }
