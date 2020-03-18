@@ -62,7 +62,7 @@ public class GuessButton extends JPanel {
 	
 	public void MarkHit() {
 		if(!isPlayer && !isClicked) {
-			String imgName = "Images/HitMarker.png";
+			String imgName = "Images" + System.getProperty("file.separator") + "HitMarker.png";
 			myImageNames.add(imgName);
 			add(ImageAdd.getImage(imgName,getBounds().width,getBounds().height));
 			MarkClick();
@@ -71,7 +71,7 @@ public class GuessButton extends JPanel {
 	
 	public void MarkMiss() {
 		if(!isPlayer && !isClicked) {
-			String imgName = "Images/MissMarker.png";
+			String imgName = "Images" + System.getProperty("file.separator") + "MissMarker.png";
 			myImageNames.add(imgName);
 			add(ImageAdd.getImage(imgName,getBounds().width,getBounds().height));
 			MarkClick();
@@ -85,7 +85,7 @@ public class GuessButton extends JPanel {
 	}
 	
 	public void DisplayShip(String ship, int section) {
-		String imgName = "Images/" + ship + "_Top_sect" + section + ".png";
+		String imgName = "Images" + System.getProperty("file.separator") + ship + "_Top_sect" + section + ".png";
 		myImageNames.add(imgName);
 		add(ImageAdd.getImage(imgName,getBounds().width,getBounds().height));
 		validate();
@@ -93,7 +93,7 @@ public class GuessButton extends JPanel {
 	}
 	
 	public void DisplayShip(String ship, int section, boolean isVertical) {
-		String imgName = "Images/" + ship + "_Top_sect" + section;
+		String imgName = "Images" + System.getProperty("file.separator") + ship + "_Top_sect" + section;
 		if(isVertical) {
 			imgName+="_vert";
 		}

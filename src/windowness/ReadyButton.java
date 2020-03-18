@@ -21,10 +21,10 @@ public class ReadyButton extends JPanel {
 	
 	private void swapImage() {
 		if(isActive) {
-			add(ImageAdd.getImage("Images/READY_active.png"));
+			add(ImageAdd.getImage("Images" + System.getProperty("file.separator") + "READY_active.png"));
 		}
 		else {
-			add(ImageAdd.getImage("Images/READY_inactive.png"));
+			add(ImageAdd.getImage("Images" + System.getProperty("file.separator") + "READY_inactive.png"));
 		}
 	}
 	

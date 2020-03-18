@@ -40,7 +40,7 @@ public class MoveShipButtons extends JPanel{
 	
 	public JButton Rotate = new JButton() {{
 		//add(ImageAdd.getImage("Images/Rotate_Icon.png"));
-		ImageIcon icon = new ImageIcon("Images/rotate.png");
+		ImageIcon icon = new ImageIcon("Images" + System.getProperty("file.separator") + "rotate.png");
 		JLabel label = new JLabel(icon);
 		int h = icon.getIconHeight() / 16;
 		int w = icon.getIconWidth() / 16;

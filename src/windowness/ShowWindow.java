@@ -33,7 +33,7 @@ public class ShowWindow {
 	}
 	
 	public static void beginBattle() {
-		curBattle = new BattleSession("blah","blah",GameOptions.loadGameOptions());
+		curBattle = new BattleSession("Player1","Computer",GameOptions.loadGameOptions());
 		theMainWindow.setScreen(theBattleScreen);
 		theBattleScreen.reload();
 		theBattleScreen.setSizes();
