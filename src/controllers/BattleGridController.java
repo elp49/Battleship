@@ -103,8 +103,7 @@ public class BattleGridController {
 					if(sank == ships.length) {
 						GameplayFunctions.doWin();
 					}*/
-					boolean playerWon = toCheck.hasRemainingShips();
-					if (playerWon) {
+					if (!toCheck.hasRemainingShips()) {
 						// Notify with pop up
 						GameplayFunctions.doWin();
 					}
@@ -139,7 +138,7 @@ public class BattleGridController {
 				playersShip = randomSquare.getShip();
 				playersShip.hit();
 
-				opponentGrid.mySquares[myRow][myCol].MarkHit();
+				opponentGrid.mySquares[randRow][randCol].MarkHit();
 				ShowWindow.theBattleScreen.log("HIT",Color.RED);
 				if(playersShip.isSunk()) {
 					ShowWindow.theBattleScreen.log("Computer Sank Your " + playersShip.getName() + "!",Color.YELLOW);
@@ -153,15 +152,14 @@ public class BattleGridController {
 					if(sank == ships.length) {
 						GameplayFunctions.doWin();
 					}*/
-					boolean computerWon = toCheck.hasRemainingShips();
-					if (computerWon) {
+					if (!playerBoard.hasRemainingShips()) {
 						// Notify with pop up
 						GameplayFunctions.doLose();
 					}
 				}
 			} else {
 				//square.markMiss();
-				myBattleGrid.mySquares[myRow][myCol].MarkMiss();
+				opponentGrid.mySquares[randRow][randCol].MarkMiss();
 				ShowWindow.theBattleScreen.log("Computer Missed");
 			}
 

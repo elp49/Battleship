@@ -95,7 +95,6 @@ public class BattleScreen extends ScreenPanel {
 	public void reload() {
 		BattleGrids.removeAll();
 		playerBG = (BattleGrid) BattleGrids.add(new BattleGrid() {{setPlayer(true);}});
-		//new ShipGraphic(new Ship() {{setName("Carrier");setSize(5);}},holdP,0,0);
 		opponentBG = (BattleGrid) BattleGrids.add(new BattleGrid());
 		playerBGC.setBattleGridControl(playerBG, opponentBG);
 		opponentBGC.setBattleGridControl(opponentBG, playerBG);
