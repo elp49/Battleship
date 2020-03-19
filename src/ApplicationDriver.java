@@ -1,4 +1,3 @@
-import code.*;
 import windowness.*;
 
 public class ApplicationDriver {

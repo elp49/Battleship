@@ -164,7 +164,21 @@ public class Board {
         return true;
     }
 
-    /*public void placeShipOnBoardVertically(Ship ship, int[] rows, char column) throws Exception {
+    public int getRowIndex(int row) {
+        // Return Y index. If row is 1, then returns 0 for first index.
+        return row - 1;
+    }
+
+    public int getColumnIndex(char column) {
+        // Convert column character to uppercase if not already.
+        char c = Character.toUpperCase(column);
+        // Retrieve ASCII value to test assertion.
+        int ascii = (int) c;
+        // Return X index. If column is A, then returns 0 for first index.
+        return c - 65;
+    }
+
+    public void placeShipOnBoardVertically(Ship ship, int[] rows, char column) throws Exception {
         // Assert ship is not null.
         assert ship != null;
         // Get column index.
@@ -218,6 +232,6 @@ public class Board {
         for (int i = 0; i < numColumns; i++) {
             squares[rowIndex][columnIndices[i]].setShip(ship);
         }
-    }*/
+    }
 
 }

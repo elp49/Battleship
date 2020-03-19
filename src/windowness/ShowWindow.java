@@ -11,7 +11,6 @@ public class ShowWindow {
 	public static BattleScreen theBattleScreen = new BattleScreen();
 	public static MenuScreen theMenuScreen = new MenuScreen();
 	public static MainWindow theMainWindow = new MainWindow();
-	//public static AudioWindow tempy = new AudioWindow();
 	
 	public static BattleSession curBattle;
 	

@@ -37,7 +37,8 @@ public class Ship {
         return false;
     }
 
-    public Ship() { }
+    public Ship() {
+    }
 
     public Ship(String name, int size) {
         this.name = name;

@@ -17,94 +17,92 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 
 public class AudioWindow extends JFrame {
-	
-	private JSlider myVolume = new JSlider(0,100);
-	
-	private JPanel myVolumePanel = new JPanel() {{
-		setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
-		add(new JLabel("Volume:") {{
-			setFont(ScreenSizer.SmallestReadableFont);
-		}});
-		add(myVolume);
-	}};
-	
-	private JCheckBox myIncludeMusic = new JCheckBox("Music") {{
-		setFont(ScreenSizer.SmallestReadableFont);
-	}};
-	
-	private JCheckBox myIncludeSFX = new JCheckBox("Sound Effects") {{
-		setFont(ScreenSizer.SmallestReadableFont);
-	}};
-	
-	private JButton ConfirmButton = new JButton("Confirm") {{
-		setFont(ScreenSizer.SmallestReadableFont);
-		addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ev) {
-				setSettings();
-				GameplayFunctions.closeAudioSettings();
-			}
-		});
-	}};
-	
-	private JButton CancelButton = new JButton("Cancel") {{
-		setFont(ScreenSizer.SmallestReadableFont);
-		addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ev) {
-				GameplayFunctions.closeAudioSettings();
-			}
-		});
-	}};
-	
-	private JPanel myCheckBoxes = new JPanel() {{
-		setLayout(new BoxLayout(this,BoxLayout.LINE_AXIS));
-		setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		add(Box.createHorizontalGlue());
-		add(myIncludeMusic);
-		add(Box.createHorizontalGlue());
-		add(myIncludeSFX);
-		add(Box.createHorizontalGlue());
-	}};
-	
-	private JPanel myButtons = new JPanel() {{
-		setLayout(new BoxLayout(this,BoxLayout.LINE_AXIS));
-		add(Box.createHorizontalGlue());
-		add(ConfirmButton);
-		add(CancelButton);
-		add(Box.createRigidArea(new Dimension(8,1)));
-	}};
-	
-	private void setSettings() {
-		ShowWindow.mySettings.setVolumeLevel(myVolume.getValue());
-		if(myIncludeMusic.isSelected()) {
-			ShowWindow.mySettings.turnMusicOn();
-		}
-		else {
-			ShowWindow.mySettings.turnMusicOff();
-		}
-		if(myIncludeSFX.isSelected()) {
-			ShowWindow.mySettings.turnSoundEffectsOn();
-		}
-		else {
-			ShowWindow.mySettings.turnSoundEffectsOff();
-		}
-		ShowWindow.mySettings.saveSettings();
-	}
-	
-	public AudioWindow(){
-		setTitle("Audio Settings");
-		
-		Container contentPane = getContentPane();
-		setLayout(new BoxLayout(contentPane,BoxLayout.PAGE_AXIS));
-		setBounds(0,0,(int) (ScreenSizer.getScreenWidth()*0.5),(int) (ScreenSizer.getScreenHeight()*0.5));
-		contentPane.add(myVolumePanel);
-		myVolumePanel.setPreferredSize(new Dimension(contentPane.getBounds().width, contentPane.getBounds().height/3));
-		contentPane.add(myCheckBoxes);
-		myCheckBoxes.setPreferredSize(new Dimension(contentPane.getBounds().width, contentPane.getBounds().height/3));
-		contentPane.add(myButtons);
-		myVolume.setValue(ShowWindow.mySettings.getVolumeLevel());
-		myIncludeMusic.setSelected(ShowWindow.mySettings.isMusicOn());
-		myIncludeSFX.setSelected(ShowWindow.mySettings.isSoundEffectsOn());
-		setVisible(true);
-	}
-	
+
+    private JSlider myVolume = new JSlider(0, 100);
+
+    private JPanel myVolumePanel = new JPanel() {{
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        add(new JLabel("Volume:") {{
+            setFont(ScreenSizer.SmallestReadableFont);
+        }});
+        add(myVolume);
+    }};
+
+    private JCheckBox myIncludeMusic = new JCheckBox("Music") {{
+        setFont(ScreenSizer.SmallestReadableFont);
+    }};
+
+    private JCheckBox myIncludeSFX = new JCheckBox("Sound Effects") {{
+        setFont(ScreenSizer.SmallestReadableFont);
+    }};
+
+    private JButton ConfirmButton = new JButton("Confirm") {{
+        setFont(ScreenSizer.SmallestReadableFont);
+        addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                setSettings();
+                GameplayFunctions.closeAudioSettings();
+            }
+        });
+    }};
+
+    private JButton CancelButton = new JButton("Cancel") {{
+        setFont(ScreenSizer.SmallestReadableFont);
+        addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                GameplayFunctions.closeAudioSettings();
+            }
+        });
+    }};
+
+    private JPanel myCheckBoxes = new JPanel() {{
+        setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        add(Box.createHorizontalGlue());
+        add(myIncludeMusic);
+        add(Box.createHorizontalGlue());
+        add(myIncludeSFX);
+        add(Box.createHorizontalGlue());
+    }};
+
+    private JPanel myButtons = new JPanel() {{
+        setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+        add(Box.createHorizontalGlue());
+        add(ConfirmButton);
+        add(CancelButton);
+        add(Box.createRigidArea(new Dimension(8, 1)));
+    }};
+
+    private void setSettings() {
+        ShowWindow.mySettings.setVolumeLevel(myVolume.getValue());
+        if (myIncludeMusic.isSelected()) {
+            ShowWindow.mySettings.turnMusicOn();
+        } else {
+            ShowWindow.mySettings.turnMusicOff();
+        }
+        if (myIncludeSFX.isSelected()) {
+            ShowWindow.mySettings.turnSoundEffectsOn();
+        } else {
+            ShowWindow.mySettings.turnSoundEffectsOff();
+        }
+        ShowWindow.mySettings.saveSettings();
+    }
+
+    public AudioWindow() {
+        setTitle("Audio Settings");
+
+        Container contentPane = getContentPane();
+        setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
+        setBounds(0, 0, (int) (ScreenSizer.getScreenWidth() * 0.5), (int) (ScreenSizer.getScreenHeight() * 0.5));
+        contentPane.add(myVolumePanel);
+        myVolumePanel.setPreferredSize(new Dimension(contentPane.getBounds().width, contentPane.getBounds().height / 3));
+        contentPane.add(myCheckBoxes);
+        myCheckBoxes.setPreferredSize(new Dimension(contentPane.getBounds().width, contentPane.getBounds().height / 3));
+        contentPane.add(myButtons);
+        myVolume.setValue(ShowWindow.mySettings.getVolumeLevel());
+        myIncludeMusic.setSelected(ShowWindow.mySettings.isMusicOn());
+        myIncludeSFX.setSelected(ShowWindow.mySettings.isSoundEffectsOn());
+        setVisible(true);
+    }
+
 }

@@ -77,20 +77,6 @@ public class BattleSession {
         this.moveTime = gameOptions.moveTime;
     }
 
-    public int getRowIndex(int row) {
-        // Return Y index. If row is 1, then returns 0 for first index.
-        return row - 1;
-    }
-
-    public int getColumnIndex(char column) {
-        // Convert column character to uppercase if not already.
-        char c = Character.toUpperCase(column);
-        // Retrieve ASCII value to test assertion.
-        int ascii = (int) c;
-        // Return X index. If column is A, then returns 0 for first index.
-        return c - 65;
-    }
-
     public void determineTurnOrder() {
         int player1 = 0;
         int player2 = 1;
@@ -136,8 +122,8 @@ public class BattleSession {
             board = opponentBoard;
         }
         // Get square indices.
-        rowIndex = getRowIndex(row);
-        columnIndex = getColumnIndex(column);
+        rowIndex = board.getRowIndex(row);
+        columnIndex = board.getColumnIndex(column);
         // Check indices are within range 0 to 9 inclusive.
         assert rowIndex >= 0 && rowIndex <= 9;
         assert columnIndex >= 0 && columnIndex <= 9;
@@ -148,9 +134,6 @@ public class BattleSession {
             return -1;
         } else if (square.hasShip()) {
             square.markHit();
-            if (!board.hasRemainingShips()) {
-                //notifyBattleGridController();
-            }
             return 1;
         } else {
             square.markMiss();

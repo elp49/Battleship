@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.Image;
-import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -15,7 +14,7 @@ public class GuessButton extends JPanel {
 	
 	public boolean isPlayer = false;
 	public boolean isClicked = false;
-	private ArrayList<String> myImageNames = new ArrayList<String>();
+	private ArrayList<String> myImageNames = new ArrayList<>();
 	
 	private String HitMarker = "Images" + System.getProperty("file.separator") + "HitMarker.png";
 	private String MissMarker = "Images" + System.getProperty("file.separator") + "MissMarker.png";
