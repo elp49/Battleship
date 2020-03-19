@@ -103,11 +103,13 @@ public class GameplayFunctions {
 	
 	public static void doWin() {
 		//Stop turnToggling
+		ShowWindow.theBattleScreen.opponentBG.setActive(false);
 		ShowWindow.theBattleScreen.log("YOU WIN!",Color.YELLOW);
 	}
 	
 	public static void doLose() {
 		//Stop turnToggling
+		ShowWindow.theBattleScreen.opponentBG.setActive(false);
 		ShowWindow.theBattleScreen.log("YOU LOSE!",Color.RED);
 	}
 	
