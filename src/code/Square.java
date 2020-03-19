@@ -3,7 +3,7 @@ package code;
 public class Square {
 
     Ship ship;
-    boolean isHit;
+    boolean wasAlreadyHit;
 
     public Ship getShip() {
         return ship;
@@ -20,22 +20,27 @@ public class Square {
         return false;
     }
 
-    public boolean isHit() {
-        return isHit;
+    public boolean wasAlreadyHit() {
+        return wasAlreadyHit;
     }
 
     public void markHit() {
-        isHit = true;
+        wasAlreadyHit = true;
+        this.ship.hit();
+    }
+
+    public void markMiss() {
+        wasAlreadyHit = true;
     }
 
     public Square() {
         this.ship = null;
-        this.isHit = false;
+        this.wasAlreadyHit = false;
     }
 
     public Square(Ship ship) {
         this.ship = ship;
-        this.isHit = false;
+        this.wasAlreadyHit = false;
     }
 
     public Ship removeShip() {

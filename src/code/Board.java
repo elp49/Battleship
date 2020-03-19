@@ -1,11 +1,13 @@
 package code;
 
+import java.awt.image.TileObserver;
 import java.util.Random;
 
 public class Board {
 
     Square[][] squares;
     Ship[] ships;
+    int remainingHits;
 
     public Square[][] getSquares() {
         return squares;
@@ -42,6 +44,19 @@ public class Board {
                 new Ship("Submarine", 3),
                 new Ship("Patrol Boat", 2)
         };
+    }
+
+    public boolean hasRemainingShips() {
+        int total = 0;
+        for (Ship ship : ships) {
+            total += ship.getHpRemaining();
+        }
+        remainingHits = total;
+        if (remainingHits > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public Square getSquare(int row, int column) {

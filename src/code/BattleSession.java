@@ -144,14 +144,16 @@ public class BattleSession {
         // Get square at row and column indices.
         square = board.getSquare(rowIndex, columnIndex);
 
-        if (square.isHit()) {
+        if (square.wasAlreadyHit()) {
             return -1;
         } else if (square.hasShip()) {
-            square.ship.hit();
             square.markHit();
+            if (!board.hasRemainingShips()) {
+                //notifyBattleGridController();
+            }
             return 1;
         } else {
-            square.markHit();
+            square.markMiss();
             return 0;
         }
     }

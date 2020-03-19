@@ -96,20 +96,12 @@ public class BattleScreen extends ScreenPanel {
 		BattleGrids.removeAll();
 		playerBG = (BattleGrid) BattleGrids.add(new BattleGrid() {{setPlayer(true);}});
 		//new ShipGraphic(new Ship() {{setName("Carrier");setSize(5);}},holdP,0,0);
-		playerBGC.setBattleGridControl(playerBG);
 		opponentBG = (BattleGrid) BattleGrids.add(new BattleGrid());
-		opponentBGC.setBattleGridControl(opponentBG);
+		playerBGC.setBattleGridControl(playerBG, opponentBG);
+		opponentBGC.setBattleGridControl(opponentBG, playerBG);
 		BattleGrids.validate();
 		BattleGrids.repaint();
-		
-		//This is a place holder and will be replaced with proper code later
-		/*myHBP.resetHBP(new Ship[] {
-				new Ship() {{setName("Carrier");setSize(5);}},
-				new Ship() {{setName("Battleship");setSize(4);}},
-				new Ship() {{setName("Destroyer");setSize(3);}},
-				new Ship() {{setName("Submarine");setSize(3);}},
-				new Ship() {{setName("Patrol Boat");setSize(2);}}
-		});*/
+
 		myHBP.resetHBP(ShowWindow.curBattle.getPlayerBoard().getShips());
 		
 		myHBPC.setHBPControl(myHBP);

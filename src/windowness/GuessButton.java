@@ -66,7 +66,6 @@ public class GuessButton extends JPanel {
 	}
 	
 	public void MarkHit() {
-		if(!isPlayer && !isClicked) {
 			String imgName = HitMarker;
 			myImageNames.add(imgName);
 			//add(ImageAdd.getImage(imgName,getBounds().width,getBounds().height));
@@ -84,11 +83,9 @@ public class GuessButton extends JPanel {
 			add(panel);
 			
 			MarkClick();
-		}
 	}
 	
 	public void MarkMiss() {
-		if(!isPlayer && !isClicked) {
 			String imgName = MissMarker;
 			myImageNames.add(imgName);
 			//add(ImageAdd.getImage(imgName,getBounds().width,getBounds().height));
@@ -106,7 +103,6 @@ public class GuessButton extends JPanel {
 			add(panel);
 			
 			MarkClick();
-		}
 	}
 	
 	public void reset() {

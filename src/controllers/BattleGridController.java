@@ -1,24 +1,26 @@
 package controllers;
 
 import java.awt.Color;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.border.BevelBorder;
-
-import windowness.BattleGrid;
-import windowness.GameplayFunctions;
-import windowness.GuessButton;
-import windowness.ShowWindow;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import code.BattleSession;
+import code.Ship;
+import code.Square;
+import windowness.BattleGrid;
+import windowness.BattleScreen;
+import windowness.GameplayFunctions;
+import windowness.ShowWindow;
+
 import code.Board;
 
 public class BattleGridController {
-	
-	private BattleGrid myBattleGrid;
+
+	BattleGrid myBattleGrid;
+	BattleGrid opponentGrid;
+
 	
 	private class addButtonListener implements MouseListener {
 		
@@ -69,53 +71,114 @@ public class BattleGridController {
 			myBattleGrid.mySquares[myRow][myCol].press();
 		}
 		public void mouseReleased(MouseEvent e) {
-			if(!myBattleGrid.mySquares[myRow][myCol].isClicked) {
-				myBattleGrid.mySquares[myRow][myCol].release();
-				ShowWindow.theBattleScreen.log("Fired at " + getColLetter(myCol) + (myRow+1));
-				Board toCheck;
-				if(myBattleGrid.mySquares[0][0].isPlayer) {
-					toCheck = ShowWindow.curBattle.getPlayerBoard();
-				}
-				else {
-					toCheck = ShowWindow.curBattle.getOpponentBoard();
-				}
-				
-				if(toCheck.getSquare(myRow, myCol).hasShip()) {
-					toCheck.getSquare(myRow, myCol).getShip().hit();
-					myBattleGrid.mySquares[myRow][myCol].MarkHit();
-					ShowWindow.theBattleScreen.log("HIT",Color.RED);
-					if(toCheck.getSquare(myRow, myCol).getShip().isSunk()) {
-						ShowWindow.theBattleScreen.log("Sank Enemy " + toCheck.getSquare(myRow, myCol).getShip().getName() + "!",Color.YELLOW);
-						int sank = 0;
-						for(sank = 0; sank < toCheck.getShips().length; sank++) {
-							if(!toCheck.getShips()[sank].isSunk()) {
-								break;
-							}
-						}
-						if(sank == toCheck.getShips().length) {
-							GameplayFunctions.doWin();
+			if(myBattleGrid.mySquares[myRow][myCol].isClicked) {
+				return;
+			}
+			myBattleGrid.mySquares[myRow][myCol].release();
+			ShowWindow.theBattleScreen.log("You Fired at " + getColLetter(myCol) + (myRow+1));
+			Board toCheck;
+			if(myBattleGrid.mySquares[0][0].isPlayer) {
+				toCheck = ShowWindow.curBattle.getPlayerBoard();
+			}
+			else {
+				toCheck = ShowWindow.curBattle.getOpponentBoard();
+			}
+
+			Square square = toCheck.getSquare(myRow, myCol);
+			Ship ship;
+			if(square.hasShip()) {
+				ship = square.getShip();
+				ship.hit();
+				myBattleGrid.mySquares[myRow][myCol].MarkHit();
+				ShowWindow.theBattleScreen.log("HIT",Color.RED);
+				if(ship.isSunk()) {
+					ShowWindow.theBattleScreen.log("Sank Enemy " + ship.getName() + "!",Color.YELLOW);
+					/*Ship[] ships = toCheck.getShips();
+					int sank = 0;
+					for(sank = 0; sank < ships.length; sank++) {
+						if(!toCheck.getShips()[sank].isSunk()) {
+							break;
 						}
 					}
+					if(sank == ships.length) {
+						GameplayFunctions.doWin();
+					}*/
+					boolean playerWon = toCheck.hasRemainingShips();
+					if (playerWon) {
+						// Notify with pop up
+						GameplayFunctions.doWin();
+					}
 				}
-				else {
-					myBattleGrid.mySquares[myRow][myCol].MarkMiss();
-					ShowWindow.theBattleScreen.log("Miss");
-				}
-				
-				//ShowWindow.curBattle.fire(getColLetter(myCol), myRow);
-				//if Board.getSquares()[myRow][myCol].hasShip(){
-					//myBattleGrid.mySquares[myRow][myCol].MarkHit();
-				//}
-				//else{
-				//	myBattleGrid.mySquares[myRow][myCol].MarkMiss();
-				//}
+
+
 			}
+			else {
+				myBattleGrid.mySquares[myRow][myCol].MarkMiss();
+				ShowWindow.theBattleScreen.log("You Missed");
+			}
+
+			// Computer randomly fires at one of the player's squares.
+			Board playerBoard = ShowWindow.curBattle.getPlayerBoard();
+			Random rand = new Random();
+			int numRows = playerBoard.getSquares().length;
+			int numCols = playerBoard.getSquares()[0].length;
+			Square randomSquare = null;
+			int randRow, randCol;
+			do {
+				// Pick a random square.
+				randRow = rand.nextInt(numRows);
+				randCol = rand.nextInt(numCols);
+				randomSquare = playerBoard.getSquare(randRow, randCol);
+			} while (randomSquare.wasAlreadyHit());
+
+			ShowWindow.theBattleScreen.log("Computer Fired at " + getColLetter(randCol) + (randRow + 1));
+
+			Ship playersShip;
+			if (randomSquare.hasShip()) {
+				//square.markHit();
+				playersShip = randomSquare.getShip();
+				playersShip.hit();
+
+				opponentGrid.mySquares[myRow][myCol].MarkHit();
+				ShowWindow.theBattleScreen.log("HIT",Color.RED);
+				if(playersShip.isSunk()) {
+					ShowWindow.theBattleScreen.log("Computer Sank Your " + playersShip.getName() + "!",Color.YELLOW);
+					/*Ship[] ships = toCheck.getShips();
+					int sank = 0;
+					for(sank = 0; sank < ships.length; sank++) {
+						if(!toCheck.getShips()[sank].isSunk()) {
+							break;
+						}
+					}
+					if(sank == ships.length) {
+						GameplayFunctions.doWin();
+					}*/
+					boolean computerWon = toCheck.hasRemainingShips();
+					if (computerWon) {
+						// Notify with pop up
+						GameplayFunctions.doLose();
+					}
+				}
+			} else {
+				//square.markMiss();
+				myBattleGrid.mySquares[myRow][myCol].MarkMiss();
+				ShowWindow.theBattleScreen.log("Computer Missed");
+			}
+
+			//ShowWindow.curBattle.fire(getColLetter(myCol), myRow);
+			//if Board.getSquares()[myRow][myCol].hasShip(){
+				//myBattleGrid.mySquares[myRow][myCol].MarkHit();
+			//}
+			//else{
+			//	myBattleGrid.mySquares[myRow][myCol].MarkMiss();
+			//}
 		}
 	}
-	
-	public void setBattleGridControl(BattleGrid toControl) {
+
+	public void setBattleGridControl(BattleGrid toControl, BattleGrid opponentGrid) {
+		this.opponentGrid = opponentGrid;
 		myBattleGrid = toControl;
-		
+
 		//register listeners if this is not the player's battle grid
 		if(!myBattleGrid.mySquares[0][0].isPlayer) {
 			for(int i = 0; i < myBattleGrid.mySquares.length; i++) {
