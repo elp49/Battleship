@@ -116,7 +116,7 @@ public class GuessButton extends JPanel {
 	}
 	
 	public void DisplayShip(String ship, int section) {
-		String imgName = "Images/" + ship + "_Top_sect" + section + ".png";
+		String imgName = "Images" + System.getProperty("file.separator") + ship + "_Top_sect" + section + ".png";
 		myImageNames.add(imgName);
 		add(ImageAdd.getImage(imgName,getBounds().width,getBounds().height));
 		validate();
@@ -124,7 +124,7 @@ public class GuessButton extends JPanel {
 	}
 	
 	public void DisplayShip(String ship, int section, boolean isVertical) {
-		String imgName = "Images/" + ship + "_Top_sect" + section;
+		String imgName = "Images"+ System.getProperty("file.separator") + ship + "_Top_sect" + section;
 		if(isVertical) {
 			imgName+="_vert";
 		}

@@ -57,7 +57,7 @@ public class HealthBarPanel extends JPanel{
 		myHBD = new HealthBarData[myShips.length];
 		for(int i = 0; i < myShips.length; i++) {
 			//We'll handle the file names at a later date
-			myHBD[i] = new HealthBarData("Images/" + myShips[i].getName() + "_Top.png", myShips[i].getName(), myShips[i].getSize());
+			myHBD[i] = new HealthBarData("Images" + System.getProperty("file.separator") + myShips[i].getName() + "_Top.png", myShips[i].getName(), myShips[i].getSize());
 			add(myHBD[i]);
 		}
 		if(myHBD.length > 0) {

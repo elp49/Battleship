@@ -43,7 +43,7 @@ public class MoveShipButtons extends JPanel{
 	}};
 	
 	public JButton Rotate = new JButton() {{
-		add(ImageAdd.getImage("Images/rotate.png"));
+		add(ImageAdd.getImage("Images" + System.getProperty("file.separator") + "rotate.png"));
 	}};
 	
 	public MoveShipButtons() {
@@ -65,7 +65,7 @@ public class MoveShipButtons extends JPanel{
 		validate();
 		repaint();
 		Rotate.removeAll();
-		Rotate.add(ImageAdd.getImage("Images/rotate.png",Rotate.getSize().height,Rotate.getSize().height));
+		Rotate.add(ImageAdd.getImage("Images" + System.getProperty("file.separator") + "rotate.png",Rotate.getSize().height,Rotate.getSize().height));
 	}
 	
 	public void setActive(boolean a) {

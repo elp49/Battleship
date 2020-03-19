@@ -7,7 +7,7 @@ import javax.swing.*;
 
 public class MenuScreen extends ScreenPanel{
 	
-	JPanel myImage = ImageAdd.getImage("Images/mainMenuGraphic.png");
+	JPanel myImage = ImageAdd.getImage("Images" + System.getProperty("file.separator") + "mainMenuGraphic.png");
 	
 	JPanel myMenuOpts = new JPanel() {{
 		add(Box.createVerticalGlue());
@@ -53,7 +53,7 @@ public class MenuScreen extends ScreenPanel{
 		setSize(new Dimension(super.getParent().getBounds().width,super.getParent().getBounds().height));
 		myImage.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width * 0.8),super.getParent().getBounds().height));
 		myImage.removeAll();
-		myImage.add(ImageAdd.getImage("Images/mainMenuGraphic.png",(int) (super.getParent().getBounds().width * 0.8),super.getParent().getBounds().height));
+		myImage.add(ImageAdd.getImage("Images" + System.getProperty("file.separator") + "mainMenuGraphic.png",(int) (super.getParent().getBounds().width * 0.8),super.getParent().getBounds().height));
 		myMenuOpts.setPreferredSize(new Dimension((int) (super.getParent().getBounds().width * 0.2),super.getParent().getBounds().height));
 		validate();
 		repaint();
