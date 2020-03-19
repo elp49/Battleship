@@ -17,6 +17,9 @@ public class GuessButton extends JPanel {
 	public boolean isClicked = false;
 	private ArrayList<String> myImageNames = new ArrayList<String>();
 	
+	private String HitMarker = "Images" + System.getProperty("file.separator") + "HitMarker.png";
+	private String MissMarker = "Images" + System.getProperty("file.separator") + "MissMarker.png";
+	
 	public GuessButton() {
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
@@ -64,7 +67,7 @@ public class GuessButton extends JPanel {
 	
 	public void MarkHit() {
 		if(!isPlayer && !isClicked) {
-			String imgName = "Images" + System.getProperty("file.separator") + "HitMarker.png";
+			String imgName = HitMarker;
 			myImageNames.add(imgName);
 			//add(ImageAdd.getImage(imgName,getBounds().width,getBounds().height));
 			
@@ -86,7 +89,7 @@ public class GuessButton extends JPanel {
 	
 	public void MarkMiss() {
 		if(!isPlayer && !isClicked) {
-			String imgName = "Images" + System.getProperty("file.separator") + "MissMarker.png";
+			String imgName = MissMarker;
 			myImageNames.add(imgName);
 			//add(ImageAdd.getImage(imgName,getBounds().width,getBounds().height));
 			
@@ -145,10 +148,51 @@ public class GuessButton extends JPanel {
 		}
 		removeAll();
 		for(String i : myImageNames) {
-			add(ImageAdd.getImage(i,getBounds().width,getBounds().height));
+			if(i.equals(HitMarker)) {
+				add(resizeHitMarker());
+			}
+			else if(i.equals(MissMarker)) {
+				add(resizeMissMarker());
+			}
+			else {
+				add(resizeShip(i));
+			}
+			//add(ImageAdd.getImage(i,getBounds().width,getBounds().height));
 		}
 		validate();
 		repaint();
+	}
+	
+	public JPanel resizeShip(String imgName) {
+		return ImageAdd.getImage(imgName,getBounds().width,getBounds().height);
+	}
+	
+	public JPanel resizeHitMarker() {
+		ImageIcon icon = new ImageIcon(HitMarker);
+		JLabel label = new JLabel(icon);
+		int h = icon.getIconHeight() / 2;
+		int w = icon.getIconWidth() / 2;
+		Image scaled = icon.getImage().getScaledInstance(h, w, Image.SCALE_SMOOTH);
+		ImageIcon scaledIcon = new ImageIcon(scaled);
+		JLabel scaledLabel = new JLabel(scaledIcon);
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		panel.add(scaledLabel);
+		return panel;
+	}
+	
+	public JPanel resizeMissMarker() {
+		ImageIcon icon = new ImageIcon(MissMarker);
+		JLabel label = new JLabel(icon);
+		int h = icon.getIconHeight() / 2;
+		int w = icon.getIconWidth() / 2;
+		Image scaled = icon.getImage().getScaledInstance(h, w, Image.SCALE_SMOOTH);
+		ImageIcon scaledIcon = new ImageIcon(scaled);
+		JLabel scaledLabel = new JLabel(scaledIcon);
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		panel.add(scaledLabel);
+		return panel;
 	}
 	
 }

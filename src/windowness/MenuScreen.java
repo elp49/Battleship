@@ -10,30 +10,35 @@ public class MenuScreen extends ScreenPanel{
 	JPanel myImage = ImageAdd.getImage("Images/mainMenuGraphic.png");
 	
 	JPanel myMenuOpts = new JPanel() {{
-		add(new JButton("SinglePlayer") {{
+		add(Box.createVerticalGlue());
+		add(new JButton("New Game") {{
 			setFont(ScreenSizer.SmallestReadableFont);
+			setAlignmentX(Component.CENTER_ALIGNMENT);
 			addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent ev) {
 					GameplayFunctions.NewGame();
 				}
 			});
 		}});
-		add(new JButton("MultiPlayer") {{
+		/*add(new JButton("MultiPlayer") {{
 			setFont(ScreenSizer.SmallestReadableFont);
 			addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent ev) {
 					GameplayFunctions.NewGame();
 				}
 			});
-		}});
+		}});*/
+		add(Box.createRigidArea(new Dimension(1,16)));
 		add(new JButton("Exit") {{
 			setFont(ScreenSizer.SmallestReadableFont);
+			setAlignmentX(Component.CENTER_ALIGNMENT);
 			addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent ev) {
 					GameplayFunctions.Exit();
 				}
 			});
 		}});
+		add(Box.createVerticalGlue());
 		setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 	}};
 	
